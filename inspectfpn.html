@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Panoptes">
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="Panoptes — NRSWA Fixed Penalty Notice field reference for Highways Inspectors.">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUGFub3B0ZXMiLCJzaG9ydF9uYW1lIjoiUGFub3B0ZXMiLCJkZXNjcmlwdGlvbiI6Ik5SU1dBIEZQTiBmaWVsZCByZWZlcmVuY2UgZm9yIEhpZ2h3YXlzIEluc3BlY3RvcnMiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2YwZmRmYyIsInRoZW1lX2NvbG9yIjoiIzBmNzY2ZSJ9">
+<title>Panoptes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand */
+  --teal:       #0f766e;
+  --teal-mid:   #14b8a6;
+  --teal-light: #99f6e4;
+  --teal-dim:   rgba(15,118,110,0.08);
+  --teal-glass: rgba(15,118,110,0.72);
+
+  --amber:      #d97706;
+  --amber-mid:  #f59e0b;
+  --amber-light:#fde68a;
+  --amber-dim:  rgba(217,119,6,0.10);
+
+  --coral:      #e11d48;
+  --coral-mid:  #f43f5e;
+  --coral-light:#fda4af;
+  --coral-dim:  rgba(225,29,72,0.09);
+
+  /* Neutrals — warm not cold */
+  --bg:         #f5f7f6;
+  --surface:    #ffffff;
+  --surface2:   #f0f4f3;
+  --border:     #d4dedd;
+  --border-light: #e8eeed;
+
+  /* Text */
+  --text:       #0f2420;
+  --text2:      #4a6360;
+  --text3:      #94b0ad;
+
+  /* Typography */
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', 'IBM Plex Mono', monospace;
+
+  /* Misc */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(15,118,110,0.08), 0 4px 12px rgba(15,118,110,0.06);
+  --shadow-sm: 0 1px 2px rgba(15,40,36,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   BLUEPRINT BACKGROUND
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-color: #e8f4f2;
+  background-image:
+    /* Fine grid */
+    linear-gradient(rgba(15,118,110,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,118,110,0.07) 1px, transparent 1px),
+    /* Medium grid */
+    linear-gradient(rgba(15,118,110,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,118,110,0.04) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  pointer-events: none;
+}
+
+/* Road cross-section SVG pattern overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3C!-- Road cross section --%3E%3Crect x='40' y='180' width='320' height='60' fill='none' stroke='%230f766e' stroke-width='1.5'/%3E%3Crect x='40' y='160' width='320' height='20' fill='none' stroke='%230f766e' stroke-width='1'/%3E%3Crect x='40' y='140' width='320' height='20' fill='none' stroke='%230f766e' stroke-width='1'/%3E%3Crect x='40' y='120' width='320' height='20' fill='none' stroke='%230f766e' stroke-width='1'/%3E%3C!-- Layer labels --%3E%3Ctext x='370' y='195' font-family='monospace' font-size='8' fill='%230f766e'%3ESubbase%3C/text%3E%3Ctext x='370' y='172' font-family='monospace' font-size='8' fill='%230f766e'%3EBase%3C/text%3E%3Ctext x='370' y='152' font-family='monospace' font-size='8' fill='%230f766e'%3EBinder%3C/text%3E%3Ctext x='370' y='132' font-family='monospace' font-size='8' fill='%230f766e'%3ESurface%3C/text%3E%3C!-- Dimension lines --%3E%3Cline x1='20' y1='120' x2='20' y2='240' stroke='%230f766e' stroke-width='0.8'/%3E%3Cline x1='15' y1='120' x2='25' y2='120' stroke='%230f766e' stroke-width='0.8'/%3E%3Cline x1='15' y1='240' x2='25' y2='240' stroke='%230f766e' stroke-width='0.8'/%3E%3Ctext x='10' y='185' font-family='monospace' font-size='7' fill='%230f766e' transform='rotate(-90,10,185)'%3E400mm%3C/text%3E%3C!-- Road markings top view --%3E%3Cline x1='40' y1='60' x2='360' y2='60' stroke='%230f766e' stroke-width='2' stroke-dasharray='20,10'/%3E%3Cline x1='40' y1='40' x2='360' y2='40' stroke='%230f766e' stroke-width='1'/%3E%3Cline x1='40' y1='80' x2='360' y2='80' stroke='%230f766e' stroke-width='1'/%3E%3C!-- Corner annotations --%3E%3Ccircle cx='40' cy='120' r='2' fill='%230f766e'/%3E%3Ccircle cx='360' cy='120' r='2' fill='%230f766e'/%3E%3Ccircle cx='40' cy='240' r='2' fill='%230f766e'/%3E%3Ccircle cx='360' cy='240' r='2' fill='%230f766e'/%3E%3C!-- Title block --%3E%3Crect x='280' y='10' width='110' height='45' fill='none' stroke='%230f766e' stroke-width='1'/%3E%3Cline x1='280' y1='22' x2='390' y2='22' stroke='%230f766e' stroke-width='0.8'/%3E%3Ctext x='335' y='19' font-family='monospace' font-size='7' fill='%230f766e' text-anchor='middle'%3ENRSWA 1991%3C/text%3E%3Ctext x='335' y='32' font-family='monospace' font-size='6' fill='%230f766e' text-anchor='middle'%3EStreet Works%3C/text%3E%3Ctext x='335' y='42' font-family='monospace' font-size='6' fill='%230f766e' text-anchor='middle'%3EReinstatement%3C/text%3E%3Ctext x='335' y='50' font-family='monospace' font-size='6' fill='%230f766e' text-anchor='middle'%3ESROH Spec%3C/text%3E%3C/svg%3E");
+  background-size: 400px 300px;
+  pointer-events: none;
+}
+
+/* All content above the background */
+.header, .nav-tabs, .section, .bottom-nav, .modal-overlay { position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+.header {
+  background: var(--teal-glass);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding: env(safe-area-inset-top, 12px) 16px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-row1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.app-logo {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.app-name {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.app-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  display: block;
+  margin-top: 1px;
+}
+
+.app-version {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.1);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* Search */
+.search-wrap { position: relative; }
+.search-input {
+  width: 100%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 9px 36px 9px 14px;
+  outline: none;
+  -webkit-appearance: none;
+  transition: background 0.15s;
+}
+.search-input::placeholder { color: rgba(255,255,255,0.5); }
+.search-input:focus { background: rgba(255,255,255,0.22); }
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  font-size: 15px;
+  display: none;
+  line-height: 1;
+}
+.search-clear.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   NAV TABS
+═══════════════════════════════════════════ */
+.nav-tabs {
+  background: var(--teal-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  gap: 2px;
+  padding: 6px 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 190;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px 8px;
+  white-space: nowrap;
+  transition: all 0.15s;
+  letter-spacing: 0.1px;
+  margin-bottom: -1px;
+}
+.nav-tab:hover { color: rgba(255,255,255,0.8); }
+.nav-tab.active {
+  color: #ffffff;
+  border-bottom: 2px solid var(--amber-mid);
+}
+
+/* ═══════════════════════════════════════════
+   FILTER CHIPS
+═══════════════════════════════════════════ */
+.filter-bar {
+  padding: 10px 14px 6px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text2);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  white-space: nowrap;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+  -webkit-appearance: none;
+}
+.chip:hover { border-color: var(--teal-mid); color: var(--teal); }
+.chip.active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(15,118,110,0.3);
+}
+
+/* ═══════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════ */
+.section { display: none; }
+.section.visible { display: block; }
+
+/* result count */
+.result-count {
+  padding: 2px 16px 4px;
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+/* ═══════════════════════════════════════════
+   OFFENCE CARDS
+═══════════════════════════════════════════ */
+.cards-list { padding: 6px 12px 110px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.card:hover { box-shadow: var(--shadow); }
+.card.open { border-color: var(--teal-mid); box-shadow: 0 2px 12px rgba(15,118,110,0.12); }
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 12px 12px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ref-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 4px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.ref-badge.nrswa  { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(15,118,110,0.2); }
+.ref-badge.permit { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+.ref-badge.cond   { background: rgba(15,118,110,0.05); color: var(--teal-mid); border: 1px solid rgba(20,184,166,0.3); }
+.ref-badge.mandatory { background: var(--coral-dim); color: var(--coral); border: 1px solid rgba(225,29,72,0.25); }
+
+.card-title-block { flex: 1; min-width: 0; }
+.card-title { font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--text); }
+.card-sub { font-size: 11px; color: var(--text3); margin-top: 2px; font-family: var(--mono); }
+
+.card-penalty-preview { text-align: right; flex-shrink: 0; }
+.pen-full { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
+.pen-discount { font-family: var(--mono); font-size: 10px; color: var(--teal-mid); }
+
+.chevron {
+  color: var(--text3);
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  margin-top: 0px;
+}
+.card.open .chevron { transform: rotate(90deg); color: var(--teal); }
+
+.card-body { display: none; }
+.card.open .card-body { display: block; }
+
+.card-body-inner {
+  border-top: 1px solid var(--border-light);
+  padding: 14px;
+  background: var(--surface2);
+}
+
+.penalty-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.pen-box {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 12px 10px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.pen-box .amount {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+.pen-box .amount.green { color: var(--teal); }
+.pen-box .label { font-size: 10px; color: var(--text3); margin-top: 4px; }
+
+.detail-grid { display: flex; flex-direction: column; gap: 10px; }
+.detail-row { display: flex; flex-direction: column; gap: 3px; }
+.detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+}
+.detail-val { font-size: 13px; color: var(--text2); line-height: 1.45; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 10px;
+  border: 1px solid;
+  letter-spacing: 0.2px;
+}
+.tag.multi     { background: var(--amber-dim); color: var(--amber); border-color: rgba(217,119,6,0.3); }
+.tag.single    { background: var(--teal-dim); color: var(--teal); border-color: rgba(15,118,110,0.25); }
+.tag.mandatory { background: var(--coral-dim); color: var(--coral); border-color: rgba(225,29,72,0.3); }
+
+.calc-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  background: var(--teal);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.15s;
+  letter-spacing: 0.1px;
+}
+.calc-btn:hover { background: #0c6158; }
+
+.empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text2);
+}
+.empty .icon { font-size: 36px; margin-bottom: 12px; }
+.empty h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+.empty p { font-size: 13px; }
+
+/* ═══════════════════════════════════════════
+   FPN CALCULATOR
+═══════════════════════════════════════════ */
+.calc-section { padding: 14px 14px 110px; }
+
+.calc-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.calc-card-head {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--teal-dim), transparent);
+}
+.calc-card-head .icon { font-size: 20px; }
+.calc-card-head h2 { font-size: 15px; font-weight: 700; color: var(--text); }
+.calc-card-head p { font-size: 12px; color: var(--text2); margin-top: 1px; }
+
+.calc-card-body { padding: 16px; }
+
+.field-group { margin-bottom: 14px; }
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 7px;
+}
+
+.field-select, .field-date, .field-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 11px 14px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field-select:focus, .field-date:focus, .field-input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(15,118,110,0.12);
+}
+.field-select option { background: #fff; color: var(--text); }
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '›';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  color: var(--text3);
+  pointer-events: none;
+  font-size: 18px;
+}
+
+.divider { height: 1px; background: var(--border-light); margin: 16px 0; }
+
+/* Result boxes */
+.result-box {
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.result-box.active { border-color: var(--teal-mid); }
+
+.result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.result-row:last-child { border-bottom: none; }
+.result-row-label { font-size: 13px; color: var(--text2); }
+.result-row-val {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.result-row-val.green { color: var(--teal); }
+.result-row-val.red   { color: var(--coral); }
+.result-row-val.amber { color: var(--amber); }
+.result-row-val.dim   { color: var(--text2); font-size: 13px; font-weight: 500; }
+
+.result-highlight {
+  background: linear-gradient(135deg, var(--teal), #0c6158);
+  padding: 18px 14px;
+  text-align: center;
+}
+.result-highlight .big {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 600;
+  color: #ffffff;
+  display: block;
+  line-height: 1.1;
+}
+.result-highlight .label { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 5px; }
+
+.status-bar {
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.1px;
+}
+.status-bar.ok     { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(15,118,110,0.2); }
+.status-bar.warn   { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(217,119,6,0.25); }
+.status-bar.danger { background: var(--coral-dim); color: var(--coral); border: 1px solid rgba(225,29,72,0.25); }
+
+.calc-placeholder {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--text3);
+}
+.calc-placeholder .icon { font-size: 30px; margin-bottom: 8px; }
+.calc-placeholder p { font-size: 13px; }
+
+/* ═══════════════════════════════════════════
+   OFFENCE CHECKER
+═══════════════════════════════════════════ */
+.checker-section { padding: 14px 14px 110px; }
+
+.checker-intro {
+  background: linear-gradient(135deg, var(--teal), #0c6158);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  text-align: center;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 16px rgba(15,118,110,0.25);
+}
+.checker-intro-icon { font-size: 34px; margin-bottom: 10px; display: block; }
+.checker-intro h2 { font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 7px; letter-spacing: -0.3px; }
+.checker-intro p { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.5; max-width: 300px; margin: 0 auto; }
+
+.checker-examples { margin-bottom: 14px; }
+.checker-eg-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+.checker-eg-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.eg-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text2);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 13px;
+  text-align: left;
+  transition: all 0.15s;
+  line-height: 1.3;
+  box-shadow: var(--shadow-sm);
+}
+.eg-chip:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+.checker-input-wrap {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.checker-input-wrap:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(15,118,110,0.1), var(--shadow);
+}
+
+.checker-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 14px 16px 8px;
+  resize: none;
+  outline: none;
+  display: block;
+}
+.checker-textarea::placeholder { color: var(--text3); }
+
+.checker-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px 10px;
+}
+.checker-char-hint {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+.checker-submit-btn {
+  background: var(--teal);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  transition: background 0.15s;
+  letter-spacing: 0.1px;
+}
+.checker-submit-btn:disabled {
+  background: var(--border);
+  color: var(--text3);
+  cursor: not-allowed;
+}
+.checker-submit-btn:not(:disabled):active { background: #0c6158; }
+
+/* checker loading */
+.checker-loading {
+  text-align: center;
+  padding: 36px 16px;
+  color: var(--text2);
+}
+.checker-loading .spin { font-size: 30px; display: block; margin-bottom: 10px; animation: spin 1.2s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.checker-loading p { font-size: 13px; }
+
+/* checker result card */
+.checker-result-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.checker-verdict {
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-left: 4px solid var(--border);
+}
+.checker-verdict.yes   { border-left-color: var(--coral); background: var(--coral-dim); }
+.checker-verdict.no    { border-left-color: var(--teal);  background: var(--teal-dim); }
+.checker-verdict.maybe { border-left-color: var(--amber); background: var(--amber-dim); }
+
+.verdict-icon { font-size: 26px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.verdict-text h3 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+.verdict-text h3.red   { color: var(--coral); }
+.verdict-text h3.green { color: var(--teal); }
+.verdict-text h3.amber { color: var(--amber); }
+.verdict-text p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+.checker-offences-found {
+  border-top: 1px solid var(--border-light);
+  padding: 12px 16px;
+}
+.cof-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.cof-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.cof-item:last-child { border-bottom: none; }
+.cof-ref {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--coral-dim);
+  color: var(--coral);
+  border: 1px solid rgba(225,29,72,0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+  text-transform: uppercase;
+}
+.cof-info { flex: 1; }
+.cof-title  { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.cof-reason { font-size: 12px; color: var(--text2); line-height: 1.4; }
+.cof-penalty {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checker-next-steps {
+  border-top: 1px solid var(--border-light);
+  padding: 12px 16px;
+  background: var(--surface2);
+}
+.cns-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.cns-list { list-style: none; }
+.cns-list li {
+  font-size: 13px;
+  color: var(--text2);
+  padding: 5px 0;
+  display: flex;
+  gap: 9px;
+  line-height: 1.4;
+  border-bottom: 1px solid var(--border-light);
+}
+.cns-list li:last-child { border-bottom: none; }
+.cns-list li::before { content: '→'; color: var(--teal); flex-shrink: 0; font-weight: 700; }
+
+.checker-new-btn {
+  display: block;
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text2);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px;
+  text-align: center;
+  transition: all 0.15s;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.checker-new-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+.checker-disclaimer {
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+  padding: 4px 8px 4px;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   QUICK REFERENCE
+═══════════════════════════════════════════ */
+.info-section { padding: 14px 14px 110px; }
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card-head {
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface);
+  transition: background 0.1s;
+}
+.info-card-head:active { background: var(--surface2); }
+.info-card-head h3 { font-size: 14px; font-weight: 700; color: var(--text); }
+.info-card-head .chev { color: var(--text3); font-size: 18px; transition: transform 0.2s; }
+.info-card.open .info-card-head .chev { transform: rotate(90deg); color: var(--teal); }
+.info-card.open .info-card-head { border-bottom: 1px solid var(--border-light); }
+
+.info-card-body { display: none; padding: 14px 16px; background: var(--surface2); }
+.info-card.open .info-card-body { display: block; }
+
+.info-list { list-style: none; }
+.info-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  gap: 10px;
+  line-height: 1.4;
+}
+.info-list li:last-child { border-bottom: none; }
+.info-list li strong { color: var(--text); font-weight: 700; min-width: 85px; flex-shrink: 0; }
+
+.info-note {
+  background: var(--amber-dim);
+  border: 1px solid rgba(217,119,6,0.25);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--amber);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.info-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 2px 4px;
+}
+.info-divider span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+.info-divider::before, .info-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* statutory text */
+.statute-block {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--teal-mid);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.statute-ref {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--teal);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.statute-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.statute-text {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.65;
+  font-style: italic;
+  border-top: 1px solid var(--border-light);
+  padding-top: 7px;
+}
+.statute-text p { margin-bottom: 5px; }
+.statute-text p:last-child { margin-bottom: 0; }
+
+.statute-summary {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.statute-summary strong { color: var(--text); font-weight: 600; }
+
+/* plain English */
+.plain-english-box {
+  background: linear-gradient(135deg, rgba(15,118,110,0.06), rgba(20,184,166,0.04));
+  border: 1px solid rgba(15,118,110,0.18);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.pe-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal);
+  margin-bottom: 7px;
+}
+.plain-english-box p { font-size: 13px; color: var(--text); line-height: 1.6; }
+.plain-english-box strong { color: var(--teal); font-weight: 700; }
+.plain-english-box em { color: var(--text2); font-style: italic; }
+
+/* ═══════════════════════════════════════════
+   WORKING DAYS CALCULATOR
+═══════════════════════════════════════════ */
+.wd-date-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.wd-box {
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.wd-box.primary {
+  background: linear-gradient(135deg, var(--teal), #0c6158);
+  border-color: var(--teal);
+}
+
+.wd-box.secondary {
+  background: var(--surface2);
+  border-color: var(--border);
+}
+
+.wd-box-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.wd-box.primary .wd-box-label { color: rgba(255,255,255,0.7); }
+.wd-box.secondary .wd-box-label { color: var(--text3); }
+
+.wd-box-day {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.wd-box.primary .wd-box-day { color: rgba(255,255,255,0.75); }
+.wd-box.secondary .wd-box-day { color: var(--text2); }
+
+.wd-box-date {
+  font-family: var(--mono);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.wd-box.primary .wd-box-date { color: #ffffff; }
+.wd-box.secondary .wd-box-date { color: var(--text); }
+
+.wd-box-sub {
+  font-size: 10px;
+  margin-top: 4px;
+}
+.wd-box.primary .wd-box-sub { color: rgba(255,255,255,0.6); }
+.wd-box.secondary .wd-box-sub { color: var(--text3); }
+
+.wd-from-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: var(--teal-dim);
+  border: 1px solid rgba(15,118,110,0.15);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+.wd-from-label { font-size: 12px; color: var(--text2); }
+.wd-from-date {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal);
+}
+
+.wd-skipped {
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.wd-skipped-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.wd-skipped-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.wd-skip-chip {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: var(--amber-dim);
+  color: var(--amber);
+  border: 1px solid rgba(217,119,6,0.2);
+  font-family: var(--mono);
+}
+.wd-skip-chip.weekend {
+  background: var(--surface);
+  color: var(--text3);
+  border-color: var(--border-light);
+}
+
+.wd-footnote {
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+  margin-top: 4px;
+  line-height: 1.5;
+  padding: 0 4px;
+}
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════════════════ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 20px rgba(15,118,110,0.08);
+}
+
+.bnav-item {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 4px 8px;
+  font-family: var(--sans);
+  transition: color 0.15s;
+}
+.bnav-item .bnav-icon { font-size: 22px; line-height: 1; }
+.bnav-item .bnav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1px; }
+.bnav-item.active { color: var(--teal); }
+.bnav-item.active .bnav-label { color: var(--teal); }
+
+/* ═══════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,36,32,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 500;
+  align-items: flex-end;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  border-top: 1px solid var(--border-light);
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+  box-shadow: 0 -8px 40px rgba(15,36,32,0.15);
+}
+
+.modal-head {
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+}
+/* drag handle */
+.modal-head::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+.modal-close {
+  background: var(--surface2);
+  border: none;
+  border-radius: 50%;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.modal-body { padding: 16px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-row1">
+    <div class="app-logo">👁️</div>
+    <span class="app-name">Panoptes</span>
+    <span class="app-sub">FPN Field Reference</span>
+    <span class="app-version">v2.1</span>
+  </div>
+  <div class="search-wrap" id="searchWrap" style="display:none;">
+    <input type="search" class="search-input" id="searchInput" placeholder="Search offences, section refs…">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('offences', this)">All Offences</button>
+  <button class="nav-tab" onclick="showSection('calculator', this)">Calculator</button>
+  <button class="nav-tab" onclick="showSection('checker', this)">Offence Checker</button>
+  <button class="nav-tab" onclick="showSection('info', this)">Quick Reference</button>
+</div>
+
+<!-- ═══ OFFENCES ═══ -->
+<div class="section visible" id="sec-offences">
+  <div class="filter-bar" id="filterBar">
+    <button class="chip active" onclick="setFilter('all', this)">All 28</button>
+    <button class="chip" onclick="setFilter('nrswa', this)">NRSWA</button>
+    <button class="chip" onclick="setFilter('permit', this)">Permit</button>
+    <button class="chip" onclick="setFilter('cond', this)">Conditions</button>
+    <button class="chip" onclick="setFilter('multi', this)">Multiple FPNs</button>
+    <button class="chip" onclick="setFilter('mandatory', this)">Mandatory</button>
+  </div>
+  <div class="result-count" id="resultCount"></div>
+  <div class="cards-list" id="cardsList"></div>
+</div>
+
+<!-- ═══ CALCULATOR ═══ -->
+<div class="section" id="sec-calculator">
+  <div class="calc-section">
+    <div class="calc-card">
+      <div class="calc-card-head">
+        <span class="icon">🧮</span>
+        <div>
+          <h2>FPN Calculator</h2>
+          <p>Penalty amounts, discount windows, deadlines</p>
+        </div>
+      </div>
+      <div class="calc-card-body">
+        <div class="field-group">
+          <label class="field-label">Select Offence</label>
+          <div class="select-wrap">
+            <select class="field-select" id="calcOffence" onchange="updateCalc()">
+              <option value="">— Choose offence —</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date of Offence</label>
+          <input type="date" class="field-date" id="calcDate" oninput="updateCalc()">
+        </div>
+        <div class="divider"></div>
+        <div id="calcResult">
+          <div class="calc-placeholder">
+            <div class="icon">📋</div>
+            <p>Select an offence and date to calculate</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-card-head">
+        <span class="icon">⏱️</span>
+        <div>
+          <h2>91-Day Checker</h2>
+          <p>Can I still issue this FPN?</p>
+        </div>
+      </div>
+      <div class="calc-card-body">
+        <div class="field-group">
+          <label class="field-label">Date of Offence</label>
+          <input type="date" class="field-date" id="ninetyDate" oninput="checkNinety()">
+        </div>
+        <div id="ninetyResult">
+          <div class="calc-placeholder">
+            <div class="icon">📅</div>
+            <p>Enter the date the offence occurred</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card" id="workingDaysCard">
+      <div class="calc-card-head">
+        <span class="icon">📆</span>
+        <div>
+          <h2>Working Days Calculator</h2>
+          <p>22 working days from today — England only</p>
+        </div>
+      </div>
+      <div class="calc-card-body">
+        <div id="workingDaysResult"></div>
+        <div class="wd-footnote">Excludes weekends and England public &amp; bank holidays. Second date adds 14 calendar days and includes all days.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ OFFENCE CHECKER ═══ -->
+<div class="section" id="sec-checker">
+  <div class="checker-section">
+    <div class="checker-intro">
+      <span class="checker-intro-icon">🔍</span>
+      <h2>Not sure if it's an offence?</h2>
+      <p>Describe what you're looking at on site in your own words. The checker will work out whether an FPN offence has been committed and which section applies.</p>
+    </div>
+
+    <div class="checker-examples">
+      <div class="checker-eg-label">Try asking…</div>
+      <div class="checker-eg-chips">
+        <button class="eg-chip" onclick="setPrompt(this)">They started digging this morning, I can't find any notice on the system</button>
+        <button class="eg-chip" onclick="setPrompt(this)">The trench has been filled in but there's no surfacing, just loose stone</button>
+        <button class="eg-chip" onclick="setPrompt(this)">No cones or barriers around the excavation at all</button>
+        <button class="eg-chip" onclick="setPrompt(this)">The permit says nights only but they're working in the day</button>
+        <button class="eg-chip" onclick="setPrompt(this)">Works finished last week, no completion notice on the system</button>
+        <button class="eg-chip" onclick="setPrompt(this)">They said it was an emergency but started 6 hours ago and still haven't notified us</button>
+      </div>
+    </div>
+
+    <div class="checker-input-wrap">
+      <textarea id="checkerInput" class="checker-textarea" placeholder="Describe what you can see on site…" rows="3" oninput="checkerInputChanged()"></textarea>
+      <div class="checker-input-footer">
+        <span class="checker-char-hint" id="checkerHint"></span>
+        <button class="checker-submit-btn" id="checkerSubmit" onclick="runChecker()" disabled>Check it →</button>
+      </div>
+    </div>
+
+    <div id="checkerResult"></div>
+    <div class="checker-disclaimer">⚠️ For guidance only — always apply your professional judgement. Not legal advice.</div>
+  </div>
+</div>
+
+<!-- ═══ QUICK REFERENCE ═══ -->
+<div class="section" id="sec-info">
+  <div class="info-section">
+
+    <div class="info-card open">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>⚖️ Penalty Amounts</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <ul class="info-list">
+          <li><strong>£2,500</strong> Statutory undertaker — most NRSWA offences</li>
+          <li><strong>£500</strong> Permit — working without / outside permit</li>
+          <li><strong>£500</strong> Conditions — failure to comply</li>
+          <li><strong>£2,500</strong> Conditions — where mandatory FPN applies</li>
+        </ul>
+        <div class="info-note">⚠️ Discount = 25% if paid within 29 days of issue</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📅 Key Time Limits</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <ul class="info-list">
+          <li><strong>91 days</strong> Maximum to issue FPN from date of offence</li>
+          <li><strong>29 days</strong> Discount payment window from date FPN issued</li>
+          <li><strong>29 days</strong> Payment deadline before prosecution considered</li>
+        </ul>
+        <div class="info-note">⚠️ The 91-day limit is absolute — cannot be extended</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📋 FPN Issue Checklist</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <ul class="info-list">
+          <li><strong>1.</strong> Confirm offence and section reference</li>
+          <li><strong>2.</strong> Check 91-day window has not expired</li>
+          <li><strong>3.</strong> Identify the correct undertaker / permit holder</li>
+          <li><strong>4.</strong> Take photographic evidence of the breach</li>
+          <li><strong>5.</strong> Record exact location, USRN, coordinates if possible</li>
+          <li><strong>6.</strong> Note works reference / permit reference</li>
+          <li><strong>7.</strong> Issue FPN — original to undertaker, copy retained</li>
+          <li><strong>8.</strong> Log in your authority's FPN register</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📚 Key Legislation</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <ul class="info-list">
+          <li><strong>NRSWA 1991</strong> New Roads and Street Works Act 1991</li>
+          <li><strong>SI 2007/1951</strong> Street Works (Fixed Penalty) (England) Regs 2007</li>
+          <li><strong>TMA 2004</strong> Traffic Management Act 2004</li>
+          <li><strong>SI 2007/3174</strong> Street Works (Registers, Notices etc) (England) Regs 2007</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>🏛️ Category Overview</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <ul class="info-list">
+          <li><strong>NRSWA (7)</strong> Core statutory undertaker offences — sections 54–74</li>
+          <li><strong>Permit (2)</strong> Working without a permit / outside permit conditions</li>
+          <li><strong>Conditions (19)</strong> NCT permit conditions — reinstatement, signing, lighting etc.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-divider"><span>NRSWA 1991 — Statutory Sections</span></div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.54 — Advance notice of works</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>Before a utility company digs up the road they must warn the council in advance. For most jobs that's at least <strong>10 working days' notice</strong>. For big jobs it's <strong>3 months</strong>. Only genuine emergencies are exempt. If they just start digging without telling anyone — that's this offence.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.54</div>
+          <div class="statute-title">Advance notice of certain works</div>
+          <div class="statute-text">
+            <p>(1) Before beginning to execute any street works to which this section applies, the undertaker shall give the street authority such advance notice as may be prescribed of his intention to execute the works.</p>
+            <p>(2) This section applies to street works which are not emergency works.</p>
+            <p>(3) The notice shall be given not less than the prescribed period before the works begin.</p>
+          </div>
+        </div>
+        <div class="statute-summary">Minimum notice: <strong>10 working days</strong> (standard), <strong>3 months</strong> (major works). Emergency works exempt — s.57 applies instead.</div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted (pay within 29 days)</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.55 — Notice of actual start date</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>Even after giving advance notice the company must confirm the actual date they're starting. If they turn up earlier than they said — or move the job forward without telling the council — that's this offence. Think of it as the second notification: "we told you we were coming, now here's the exact date."</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.55</div>
+          <div class="statute-title">Notice of starting date of works</div>
+          <div class="statute-text">
+            <p>(1) An undertaker who has given notice under section 54 shall give the street authority notice of the date on which the works are to begin, not less than the prescribed period before that date.</p>
+            <p>(2) If the works are not begun on the notified date, the undertaker shall give fresh notice under this section.</p>
+            <p>(3) An undertaker who begins works without giving notice as required by this section, or before the notified date, is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">Commonly triggered when a job is brought forward without updating the street authority. A fresh notice is required any time the start date changes.</div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted (pay within 29 days)</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.57 — Notice of emergency works</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>If there's a burst pipe or cable emergency the company can start digging straight away — that's fine. But they still have to phone the council <strong>as soon as they possibly can</strong> after starting and explain why it's an emergency. Forgetting to call, or doing it hours later with no good reason, is this offence.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.57</div>
+          <div class="statute-title">Notice of emergency works</div>
+          <div class="statute-text">
+            <p>(1) An undertaker who executes emergency works shall, as soon as reasonably practicable after commencing the works, give the street authority notice of— (a) the place and nature of the works, and (b) the reason for treating the works as emergency works.</p>
+            <p>(2) An undertaker who fails to comply with subsection (1) is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">In practice notice is expected within <strong>2 hours</strong> of commencement. The notice must state the specific reason — a vague response is not sufficient.</div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted (pay within 29 days)</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.59 — Duty to reinstate</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>Once the work is done the company must put the road back to at least the same standard it was before — properly, using the right materials and methods. They can't just dump some tarmac in the hole and leave. If the patch is badly done, too thin, wrong mix, or they never get round to the permanent fix — that's this offence.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.59</div>
+          <div class="statute-title">General duty of undertaker to reinstate</div>
+          <div class="statute-text">
+            <p>(1) An undertaker who executes street works shall reinstate the street to at least its condition before the works were executed (or better condition), and shall do so in accordance with any directions given to him by the street authority and the prescribed specifications and standards.</p>
+            <p>(2) The undertaker shall complete reinstatement within the prescribed period, and the duty to maintain the reinstatement continues for the prescribed guarantee period.</p>
+            <p>(3) An undertaker who fails to comply with this section is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">Standards set by <strong>SROH</strong>. Permanent reinstatement: <strong>6 months</strong> (bound) or <strong>3 months</strong> (unbound). Guarantee period: <strong>2–3 years</strong>.</div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted. Multiple FPNs possible for multiple openings.</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.60 — Safety at the worksite</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>While work is going on the site must be made safe for everyone — pedestrians, cyclists, and drivers. Proper barriers, signs, and lights around any holes or hazards, set up correctly to the national code. If you arrive and there are no cones, no signs, an open trench with nothing round it, or the traffic management is a shambles — that's this offence.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.60</div>
+          <div class="statute-title">Safety measures</div>
+          <div class="statute-text">
+            <p>(1) An undertaker executing street works shall— (a) secure that the works are properly guarded and lit in accordance with the prescribed requirements, and (b) comply with such requirements as may be prescribed as to the use of traffic signs in connection with the works.</p>
+            <p>(2) An undertaker who fails to comply with subsection (1) is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">Requirements set by <strong>Safety at Street Works Code of Practice</strong> and <strong>Chapter 8 of the Traffic Signs Manual</strong>. Applies for the entire duration of works.</div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted. Multiple FPNs possible. See also NCT Condition C1 (£500).</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.70 — Ignoring council directions</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>The council can tell a utility company <em>how</em> and <em>when</em> to do their work — for example "you can only work between 9pm and 6am on this high street." If the company ignores a valid instruction and carries on regardless that's this offence. The council must have properly issued the direction first — verbal requests don't count.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.70</div>
+          <div class="statute-title">Directions as to timing and placing of works</div>
+          <div class="statute-text">
+            <p>(1) The street authority may give directions to an undertaker as to the time at which, or the manner in which, street works are to be executed, if the authority consider it necessary to do so— (a) for the purpose of preventing or reducing damage to the street, (b) preventing or reducing inconvenience to the public, or (c) in the interests of safety.</p>
+            <p>(2) An undertaker who fails to comply with a direction given under this section is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">Direction must be validly issued and formally served before this FPN can be used. <strong>Retain a copy of the direction as evidence.</strong></div>
+        <div class="info-note">⚠️ FPN: £2,500 full / £1,875 discounted (pay within 29 days)</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head" onclick="toggleInfo(this)">
+        <h3>📖 s.74 — Failure to notify completion</h3><span class="chev">›</span>
+      </div>
+      <div class="info-card-body">
+        <div class="plain-english-box">
+          <div class="pe-label">💬 Plain English</div>
+          <p>When a job is finished the company must tell the council straight away. The council uses this notice to start the clock on reinstatement guarantees and to update their street works register. Forgetting to send the completion notice, or sending it weeks late, is this offence. Note: staying on site too long is a <em>separate</em> issue — that triggers financial charges, not this FPN.</p>
+        </div>
+        <div class="statute-block">
+          <div class="statute-ref">NRSWA 1991 s.74</div>
+          <div class="statute-title">Charges where works unreasonably prolonged</div>
+          <div class="statute-text">
+            <p>(1) The Secretary of State may make regulations providing for undertakers to be liable to pay charges to the street authority where street works are not completed within the agreed period.</p>
+            <p>(2) An undertaker shall also give the street authority notice as soon as the works are completed.</p>
+            <p>(3) An undertaker who fails to give notice as required is guilty of an offence and liable to a fixed penalty notice.</p>
+          </div>
+        </div>
+        <div class="statute-summary">The <strong>FPN offence</strong> is failure to give completion notice — not overrunning. Overrunning triggers separate financial charges under SI 2009/303.</div>
+        <div class="info-note">⚠️ FPN (completion notice only): £2,500 full / £1,875 discounted. Overrunning charges are separate.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bnav-item active" id="bnav-offences" onclick="showSection('offences', null, true)">
+    <span class="bnav-icon">📋</span>
+    <span class="bnav-label">Offences</span>
+  </button>
+  <button class="bnav-item" id="bnav-calculator" onclick="showSection('calculator', null, true)">
+    <span class="bnav-icon">🧮</span>
+    <span class="bnav-label">Calculator</span>
+  </button>
+  <button class="bnav-item" id="bnav-checker" onclick="showSection('checker', null, true)">
+    <span class="bnav-icon">🔍</span>
+    <span class="bnav-label">Checker</span>
+  </button>
+  <button class="bnav-item" id="bnav-info" onclick="showSection('info', null, true)">
+    <span class="bnav-icon">📚</span>
+    <span class="bnav-label">Reference</span>
+  </button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <div style="padding-top:8px">
+        <div style="font-size:14px;font-weight:700;color:var(--text)" id="modalTitle">Quick FPN Calc</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px" id="modalSub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════
+// DATA — ALL 28 OFFENCES
+// ═══════════════════════════════
+const OFFENCES = [
+  { ref:'S.54', cat:'nrswa', title:'Failure to give notice of intended works', sub:'NRSWA 1991 s.54', detail:'Undertaker fails to give the required advance notice to the highway authority before commencing street works. Minimum 10 working days normally required.', offenceDate:'Date on which works commenced without notice having been given', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:false, notes:'Notice requirements vary — emergency works exempt. Check whether EWN was served where applicable.' },
+  { ref:'S.55', cat:'nrswa', title:'Starting works before notice period expires', sub:'NRSWA 1991 s.55', detail:'Undertaker commences works before the notice period has elapsed, i.e. before the authority has had the required time to respond.', offenceDate:'Date on which works commenced before notice period expired', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'S.57', cat:'nrswa', title:'Failure to give notice of emergency works', sub:'NRSWA 1991 s.57', detail:'Undertaker fails to give notice of emergency works as soon as practicable. Notice must be given to the authority at the time of commencement or as soon after as reasonably practicable.', offenceDate:'Date on which notice should have been given but was not', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'S.59', cat:'nrswa', title:'Failure to comply with general duty to reinstate', sub:'NRSWA 1991 s.59', detail:'Undertaker fails to reinstate the highway after completing street works in accordance with the specification and to the required standard. Includes failure to make permanent reinstatement within the required period.', offenceDate:'Date on which failure to reinstate to required standard identified', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:true, notes:'Separate FPNs may be issued for each reinstatement failure where a site has multiple openings.' },
+  { ref:'S.60', cat:'nrswa', title:'Failure to comply with safety requirements', sub:'NRSWA 1991 s.60', detail:'Undertaker fails to comply with requirements relating to the safety of the public and the flow of traffic, including signing, lighting and guarding of excavations.', offenceDate:'Date on which safety failure was identified by inspector', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:true, notes:'Can overlap with condition FPNs. Ensure you use the most appropriate section reference.' },
+  { ref:'S.70', cat:'nrswa', title:'Failure to comply with directions — timing/placing', sub:'NRSWA 1991 s.70', detail:'Undertaker fails to comply with a direction given by the authority regarding the timing or placing of their street works.', offenceDate:'Date on which direction was not complied with', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:false, notes:'Direction must have been validly served. Retain copy of direction as evidence.' },
+  { ref:'S.74', cat:'nrswa', title:'Failure to give notice of completion of works', sub:'NRSWA 1991 s.74', detail:'Undertaker fails to give notice of completion of works. Notice must be given to the authority as soon as practicable after the works are complete.', offenceDate:'Date by which completion notice should have been given', timeLimit:'Within 91 days of the offence date', penalty:2500, discount:1875, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'PERMIT-1', cat:'permit', title:'Working without a permit', sub:'Permit Scheme Regulation', detail:'Undertaker is carrying out street works at a location and time that falls within the permit scheme, but no permit has been granted and/or EWN has not been served.', offenceDate:'Date on which works found to be carried out without a permit', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Check whether permit was applied for but refused, or simply not applied for.' },
+  { ref:'PERMIT-2', cat:'permit', title:'Working outside permit conditions', sub:'Permit Scheme Regulation', detail:'Undertaker holds a valid permit but is carrying out works outside the permitted hours, location, or other conditions attached to the permit.', offenceDate:'Date on which works observed to be outside permit conditions', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Document the specific condition breached. Retain permit as evidence.' },
+  { ref:'C1', cat:'cond', title:'Failure to maintain signing, lighting and guarding', sub:'NCT Condition 1', detail:'Works not provided with the required signing, lighting and guarding in accordance with Chapter 8 of the Traffic Signs Manual and Safety at Street Works and Road Works Code of Practice.', offenceDate:'Date on which breach of signing/lighting/guarding observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:true, multiPossible:true, notes:'Mandatory FPN where SLG completely absent. Photograph conditions thoroughly.' },
+  { ref:'C2', cat:'cond', title:'Failure to display permit details', sub:'NCT Condition 2', detail:'The permit reference number and other required information is not displayed at the worksite as required by the permit scheme.', offenceDate:'Date on which failure to display permit details observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C3', cat:'cond', title:'Failure to have required equipment on site', sub:'NCT Condition 3', detail:'Undertaker fails to have a copy of the permit and required documentation available at the worksite for inspection by an authorised officer.', offenceDate:'Date on which failure observed on site inspection', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C4', cat:'cond', title:'Works not in accordance with plan / details submitted', sub:'NCT Condition 4', detail:'Works on site are not being carried out in accordance with the details (e.g. TM drawings, site description, method statement) submitted with the permit application.', offenceDate:'Date on which discrepancy from submitted plan observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Retain copy of approved permit drawings as evidence.' },
+  { ref:'C5', cat:'cond', title:'Failure to maintain traffic management as agreed', sub:'NCT Condition 5', detail:'Traffic management measures (e.g. signals, lane closures, diversions) are not in place or not maintained in accordance with the agreed scheme.', offenceDate:'Date on which TM failure observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:null },
+  { ref:'C6', cat:'cond', title:'Failure to maintain paving/surface in safe condition', sub:'NCT Condition 6', detail:'The surface of the excavation or temporary reinstatement is not maintained in a safe condition, creating a hazard for pedestrians or vehicles.', offenceDate:'Date on which unsafe surface condition identified', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:true, multiPossible:true, notes:'Mandatory FPN where immediate risk to public is present. Document hazard clearly.' },
+  { ref:'C7', cat:'cond', title:'Failure to comply with conditions on working hours', sub:'NCT Condition 7', detail:'Works are being carried out outside the permitted working hours specified in the permit or as directed by the authority.', offenceDate:'Date and time at which out-of-hours working observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Note exact time of observation. Check permit for permitted hours.' },
+  { ref:'C8', cat:'cond', title:'Failure to keep site tidy', sub:'NCT Condition 8', detail:'The worksite is not being kept in a clean and tidy condition, with materials, waste and equipment not stored safely and road markings/surfaces obscured.', offenceDate:'Date on which site housekeeping failure observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C9', cat:'cond', title:'Failure to reinstate immediately on completion of works', sub:'NCT Condition 9', detail:'Undertaker fails to carry out interim or permanent reinstatement as soon as reasonably practicable following completion of the works.', offenceDate:'Date on which failure to reinstate promptly identified', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Reinstatement requirements under NRSWA s.59 may also apply concurrently.' },
+  { ref:'C10', cat:'cond', title:'Failure to carry out permanent reinstatement in time', sub:'NCT Condition 10', detail:'The permanent reinstatement is not completed within the specified timescale set out in the permit or the SROH.', offenceDate:'Date on which time limit for permanent reinstatement expired', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'SROH: 6 months for bound layer, 3 months for unbound.' },
+  { ref:'C11', cat:'cond', title:'Failure to give prior notice of intention to excavate', sub:'NCT Condition 11', detail:'Undertaker fails to give the required advance notice before beginning excavation, as stipulated in the permit conditions or permit scheme.', offenceDate:'Date on which excavation commenced without required prior notice', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C12', cat:'cond', title:'Failure to notify completion of reinstatement', sub:'NCT Condition 12', detail:'Undertaker fails to notify the authority upon completion of reinstatement works as required by the permit scheme.', offenceDate:'Date by which notification of completion should have been submitted', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C13', cat:'cond', title:'Failure to provide/update traffic management information', sub:'NCT Condition 13', detail:'Undertaker fails to provide or update required traffic management information (e.g. NTMIS) relating to their works.', offenceDate:'Date on which failure to provide/update TM information identified', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C14', cat:'cond', title:'Failure to comply with conditions — footway access', sub:'NCT Condition 14', detail:'Undertaker fails to maintain safe pedestrian access past the worksite as required — no pedestrian walkway, inadequate barriers, or walkway not properly lit/guarded.', offenceDate:'Date on which pedestrian access failure observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:true, multiPossible:true, notes:'Mandatory FPN where pedestrian route completely blocked without authorised diversion.' },
+  { ref:'C15', cat:'cond', title:'Failure to comply — special engineering difficulty', sub:'NCT Condition 15', detail:'Undertaker fails to comply with conditions relating to works in a special engineering difficulty (SED) designation.', offenceDate:'Date on which breach of SED condition observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:'Confirm SED designation is current and applies to the relevant location.' },
+  { ref:'C16', cat:'cond', title:'Failure to comply — critical/sensitive roads', sub:'NCT Condition 16', detail:'Undertaker fails to comply with conditions imposed because the works are on a critical or sensitive road.', offenceDate:'Date on which breach of critical road condition observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:null },
+  { ref:'C17', cat:'cond', title:'Failure to comply — protected streets', sub:'NCT Condition 17', detail:'Undertaker fails to comply with special conditions relating to works on a protected street designation.', offenceDate:'Date on which breach of protected street condition observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:false, notes:'Check street designation and confirm conditions were clearly specified in the permit.' },
+  { ref:'C18', cat:'cond', title:'Failure to comply — materials/specification conditions', sub:'NCT Condition 18', detail:'Reinstatement materials, depths or specification do not comply with those required by the SROH or with specific conditions attached to the permit.', offenceDate:'Date on which specification non-compliance identified', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'May require sample/inspection evidence. SROH specification must be available for reference.' },
+  { ref:'C19', cat:'cond', title:'Failure to comply — miscellaneous conditions', sub:'NCT Condition 19', detail:'Catch-all for failure to comply with any other condition validly attached to a permit that does not fall within Conditions 1–18.', offenceDate:'Date on which breach of specific permit condition observed', timeLimit:'Within 91 days of the offence date', penalty:500, discount:375, discountDays:29, mandatory:false, multiPossible:true, notes:'Must clearly identify the specific condition breached. Condition must be recorded in the permit.' }
+];
+
+// STATE
+let currentFilter = 'all', currentSection = 'offences', openCards = new Set(), searchTerm = '';
+
+// NAVIGATION
+function showSection(name, tabEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.getElementById('sec-' + name).classList.add('visible');
+  if (tabEl) {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+  } else {
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = {offences:0, calculator:1, checker:2, info:3};
+    tabs.forEach(t => t.classList.remove('active'));
+    if (map[name] !== undefined) tabs[map[name]].classList.add('active');
+  }
+  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('bnav-' + name).classList.add('active');
+  document.getElementById('searchWrap').style.display = name === 'offences' ? 'block' : 'none';
+  currentSection = name;
+  window.scrollTo(0, 0);
+}
+
+// FILTER & RENDER
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderCards();
+}
+
+function renderCards() {
+  let list = OFFENCES.filter(o => {
+    if (currentFilter === 'nrswa' && o.cat !== 'nrswa') return false;
+    if (currentFilter === 'permit' && o.cat !== 'permit') return false;
+    if (currentFilter === 'cond' && o.cat !== 'cond') return false;
+    if (currentFilter === 'multi' && !o.multiPossible) return false;
+    if (currentFilter === 'mandatory' && !o.mandatory) return false;
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      if (!o.ref.toLowerCase().includes(q) && !o.title.toLowerCase().includes(q) &&
+          !o.sub.toLowerCase().includes(q) && !o.detail.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  const rc = document.getElementById('resultCount');
+  rc.textContent = (searchTerm || currentFilter !== 'all') ? `${list.length} of ${OFFENCES.length} offences` : `${OFFENCES.length} offences`;
+
+  if (!list.length) {
+    document.getElementById('cardsList').innerHTML = `<div class="empty"><div class="icon">🔍</div><h3>No offences found</h3><p>Try a different search term or filter</p></div>`;
+    return;
+  }
+
+  document.getElementById('cardsList').innerHTML = list.map(o => {
+    const isOpen = openCards.has(o.ref);
+    const refClass = o.mandatory ? 'mandatory' : o.cat;
+    return `<div class="card ${isOpen ? 'open' : ''}" id="card-${o.ref.replace(/[^a-z0-9]/gi,'_')}">
+      <div class="card-head" onclick="toggleCard('${o.ref}')">
+        <span class="ref-badge ${refClass}">${o.ref}</span>
+        <div class="card-title-block">
+          <div class="card-title">${o.title}</div>
+          <div class="card-sub">${o.sub}</div>
+        </div>
+        <div class="card-penalty-preview">
+          <div class="pen-full">£${o.penalty.toLocaleString()}</div>
+          <div class="pen-discount">£${o.discount.toLocaleString()} early</div>
+        </div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="card-body"><div class="card-body-inner">
+        <div class="penalty-row">
+          <div class="pen-box"><div class="amount">£${o.penalty.toLocaleString()}</div><div class="label">Full penalty</div></div>
+          <div class="pen-box"><div class="amount green">£${o.discount.toLocaleString()}</div><div class="label">Pay within ${o.discountDays} days</div></div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-row"><span class="detail-label">What it covers</span><span class="detail-val">${o.detail}</span></div>
+          <div class="detail-row"><span class="detail-label">Offence date</span><span class="detail-val">${o.offenceDate}</span></div>
+          <div class="detail-row"><span class="detail-label">Time limit to issue</span><span class="detail-val">${o.timeLimit}</span></div>
+          ${o.notes ? `<div class="detail-row"><span class="detail-label">Notes</span><span class="detail-val">${o.notes}</span></div>` : ''}
+        </div>
+        <div class="tag-row">
+          ${o.mandatory ? '<span class="tag mandatory">Mandatory FPN</span>' : ''}
+          ${o.multiPossible ? '<span class="tag multi">Multiple FPNs possible</span>' : '<span class="tag single">Single FPN</span>'}
+        </div>
+        <button class="calc-btn" onclick="openCalcModal('${o.ref}')">🧮 Calculate this FPN →</button>
+      </div></div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(ref) {
+  if (openCards.has(ref)) openCards.delete(ref);
+  else openCards.add(ref);
+  renderCards();
+  setTimeout(() => {
+    const el = document.getElementById('card-' + ref.replace(/[^a-z0-9]/gi,'_'));
+    if (el && openCards.has(ref)) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
+}
+
+// SEARCH
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+searchInput.addEventListener('input', e => {
+  searchTerm = e.target.value.trim();
+  searchClear.classList.toggle('visible', searchTerm.length > 0);
+  renderCards();
+});
+function clearSearch() {
+  searchInput.value = ''; searchTerm = '';
+  searchClear.classList.remove('visible');
+  renderCards();
+}
+
+// INFO ACCORDIONS
+function toggleInfo(headEl) { headEl.closest('.info-card').classList.toggle('open'); }
+
+// CALCULATOR
+function populateCalcSelect() {
+  const sel = document.getElementById('calcOffence');
+  OFFENCES.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.ref;
+    opt.textContent = `${o.ref} — ${o.title}`;
+    sel.appendChild(opt);
+  });
+}
+
+function updateCalc() {
+  const ref = document.getElementById('calcOffence').value;
+  const dateStr = document.getElementById('calcDate').value;
+  const result = document.getElementById('calcResult');
+  if (!ref || !dateStr) { result.innerHTML = `<div class="calc-placeholder"><div class="icon">📋</div><p>Select an offence and date to calculate</p></div>`; return; }
+  const o = OFFENCES.find(x => x.ref === ref);
+  if (!o) return;
+  const offenceDate = new Date(dateStr);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysSince = Math.floor((today - offenceDate) / 86400000);
+  const deadline91 = new Date(offenceDate); deadline91.setDate(deadline91.getDate() + 91);
+  const daysLeft = Math.floor((deadline91 - today) / 86400000);
+  const expired = daysSince > 91;
+  const discountDeadline = new Date(today); discountDeadline.setDate(discountDeadline.getDate() + o.discountDays);
+  const payDeadline = new Date(today); payDeadline.setDate(payDeadline.getDate() + 36);
+  const statusHTML = expired
+    ? `<div class="status-bar danger">⛔ 91-day limit EXPIRED — FPN cannot be issued</div>`
+    : daysLeft <= 14
+      ? `<div class="status-bar warn">⚠️ Urgent — only ${daysLeft} day${daysLeft===1?'':'s'} remaining</div>`
+      : `<div class="status-bar ok">✅ Within limit — ${daysLeft} days remaining</div>`;
+  result.innerHTML = `${statusHTML}<div class="result-box ${!expired?'active':''}">
+    <div class="result-row"><span class="result-row-label">Days since offence</span><span class="result-row-val ${daysSince>91?'red':daysSince>77?'amber':''}">${daysSince}</span></div>
+    <div class="result-row"><span class="result-row-label">91-day deadline</span><span class="result-row-val ${expired?'red':'dim'}">${fmtDate(deadline91)}</span></div>
+    ${!expired ? `
+    <div class="result-row"><span class="result-row-label">Full penalty</span><span class="result-row-val">£${o.penalty.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-row-label">Discounted amount</span><span class="result-row-val green">£${o.discount.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-row-label">Discount deadline</span><span class="result-row-val dim">${fmtDate(discountDeadline)}</span></div>
+    <div class="result-row"><span class="result-row-label">Payment deadline</span><span class="result-row-val dim">${fmtDate(payDeadline)}</span></div>
+    <div class="result-highlight"><span class="big">£${o.discount.toLocaleString()}</span><div class="label">to pay by ${fmtDate(discountDeadline)} for discounted rate</div></div>
+    ` : `<div class="result-row"><span class="result-row-label">Expired</span><span class="result-row-val red">${Math.abs(daysLeft)} days ago</span></div>`}
+  </div>`;
+}
+
+function checkNinety() {
+  const dateStr = document.getElementById('ninetyDate').value;
+  const result = document.getElementById('ninetyResult');
+  if (!dateStr) { result.innerHTML = `<div class="calc-placeholder"><div class="icon">📅</div><p>Enter the date the offence occurred</p></div>`; return; }
+  const offenceDate = new Date(dateStr);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const deadline = new Date(offenceDate); deadline.setDate(deadline.getDate() + 91);
+  const daysSince = Math.floor((today - offenceDate) / 86400000);
+  const daysLeft = Math.floor((deadline - today) / 86400000);
+  const expired = daysSince >= 91;
+  const statusHTML = expired
+    ? `<div class="status-bar danger">⛔ CANNOT ISSUE — expired ${Math.abs(daysLeft)} day${Math.abs(daysLeft)===1?'':'s'} ago</div>`
+    : daysLeft <= 7
+      ? `<div class="status-bar danger">🚨 URGENT — only ${daysLeft} day${daysLeft===1?'':'s'} left</div>`
+      : daysLeft <= 21
+        ? `<div class="status-bar warn">⚠️ Issue soon — ${daysLeft} days remaining</div>`
+        : `<div class="status-bar ok">✅ Can issue — ${daysLeft} days remaining</div>`;
+  result.innerHTML = `${statusHTML}<div class="result-box">
+    <div class="result-row"><span class="result-row-label">Offence date</span><span class="result-row-val dim">${fmtDate(offenceDate)}</span></div>
+    <div class="result-row"><span class="result-row-label">Days elapsed</span><span class="result-row-val ${daysSince>77?'red':'amber'}">${daysSince}</span></div>
+    <div class="result-row"><span class="result-row-label">Issue deadline</span><span class="result-row-val ${expired?'red':'dim'}">${fmtDate(deadline)}</span></div>
+    <div class="result-row"><span class="result-row-label">Days remaining</span><span class="result-row-val ${expired?'red':daysLeft<=14?'amber':'green'}">${expired?0:daysLeft}</span></div>
+  </div>`;
+}
+
+// MODAL
+function openCalcModal(ref) {
+  const o = OFFENCES.find(x => x.ref === ref);
+  if (!o) return;
+  document.getElementById('modalTitle').textContent = o.ref + ' — FPN Calculator';
+  document.getElementById('modalSub').textContent = o.title;
+  const todayStr = new Date().toISOString().split('T')[0];
+  document.getElementById('modalBody').innerHTML = `
+    <div class="field-group"><label class="field-label">Date of Offence</label>
+    <input type="date" class="field-date" id="modalDate" value="${todayStr}" oninput="updateModalCalc('${ref}')"></div>
+    <div style="height:12px"></div><div id="modalResult"></div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  updateModalCalc(ref);
+}
+
+function updateModalCalc(ref) {
+  const o = OFFENCES.find(x => x.ref === ref);
+  const dateStr = document.getElementById('modalDate').value;
+  const result = document.getElementById('modalResult');
+  if (!dateStr) return;
+  const offenceDate = new Date(dateStr);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysSince = Math.floor((today - offenceDate) / 86400000);
+  const deadline91 = new Date(offenceDate); deadline91.setDate(deadline91.getDate() + 91);
+  const daysLeft = Math.floor((deadline91 - today) / 86400000);
+  const expired = daysSince >= 91;
+  const discountDeadline = new Date(today); discountDeadline.setDate(discountDeadline.getDate() + o.discountDays);
+  const payDeadline = new Date(today); payDeadline.setDate(payDeadline.getDate() + 36);
+  const statusHTML = expired
+    ? `<div class="status-bar danger">⛔ 91-day limit EXPIRED</div>`
+    : daysLeft <= 14
+      ? `<div class="status-bar warn">⚠️ ${daysLeft} days left to issue</div>`
+      : `<div class="status-bar ok">✅ ${daysLeft} days remaining</div>`;
+  result.innerHTML = `${statusHTML}<div class="result-box ${!expired?'active':''}">
+    ${!expired ? `
+    <div class="result-row"><span class="result-row-label">Full penalty</span><span class="result-row-val">£${o.penalty.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-row-label">Discounted (by ${fmtDate(discountDeadline)})</span><span class="result-row-val green">£${o.discount.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-row-label">Payment deadline</span><span class="result-row-val dim">${fmtDate(payDeadline)}</span></div>
+    <div class="result-highlight"><span class="big">£${o.discount.toLocaleString()}</span><div class="label">discounted rate if paid by ${fmtDate(discountDeadline)}</div></div>`
+    : `<div class="result-row"><span class="result-row-label">Expired</span><span class="result-row-val red">${Math.abs(daysLeft)} days ago</span></div>`}
+  </div>`;
+}
+
+function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+// UTILS
+function fmtDate(d) { return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+
+// OFFENCE CHECKER
+function setPrompt(el) {
+  const ta = document.getElementById('checkerInput');
+  ta.value = el.textContent.trim();
+  checkerInputChanged();
+  ta.focus();
+}
+
+function checkerInputChanged() {
+  const val = document.getElementById('checkerInput').value.trim();
+  document.getElementById('checkerSubmit').disabled = val.length < 5;
+  document.getElementById('checkerHint').textContent = val.length > 0 ? `${val.length} chars` : '';
+}
+
+async function runChecker() {
+  const question = document.getElementById('checkerInput').value.trim();
+  if (!question) return;
+  const resultEl = document.getElementById('checkerResult');
+  document.getElementById('checkerSubmit').disabled = true;
+  resultEl.innerHTML = `<div class="checker-loading"><span class="spin">⚙️</span><p>Checking against all 28 offences…</p></div>`;
+  const offenceList = OFFENCES.map(o => `${o.ref} | ${o.title} | ${o.sub} | £${o.penalty} (£${o.discount} disc) | ${o.detail}${o.mandatory?' | MANDATORY':''}${o.multiPossible?' | MULTI-FPN':''}`).join('\n');
+  const systemPrompt = `You are an expert NRSWA compliance assistant helping highways inspectors in the field. You know all 28 FPN offences:\n${offenceList}\n\nWhen an inspector describes a situation: 1) Decide verdict: yes/no/maybe. 2) Identify offences and why. 3) Give practical next steps.\n\nRespond ONLY with JSON, no markdown:\n{"verdict":"yes|no|maybe","headline":"short punchy verdict max 8 words","summary":"2-3 sentences plain English like talking to a colleague","offences":[{"ref":"S.54","title":"offence title","reason":"why this applies","penalty":2500}],"nextSteps":["action 1","action 2"],"caveat":"important caveat or null"}`;
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:systemPrompt, messages:[{role:'user',content:question}] })
+    });
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '';
+    let result;
+    try { result = JSON.parse(raw.replace(/```json|```/g,'').trim()); }
+    catch { throw new Error('Parse error'); }
+    renderCheckerResult(result);
+  } catch(err) {
+    resultEl.innerHTML = `<div class="checker-result-card"><div class="checker-verdict maybe" style="border-left-color:var(--coral)"><span class="verdict-icon">⚠️</span><div class="verdict-text"><h3 class="amber">Connection error</h3><p>Couldn't reach the checker. Check your internet connection and try again.</p></div></div></div><button class="checker-new-btn" onclick="resetChecker()">← Try again</button>`;
+    document.getElementById('checkerSubmit').disabled = false;
+  }
+}
+
+function renderCheckerResult(r) {
+  const resultEl = document.getElementById('checkerResult');
+  const icon = r.verdict==='yes'?'🚨':r.verdict==='no'?'✅':'⚠️';
+  const hc = r.verdict==='yes'?'red':r.verdict==='no'?'green':'amber';
+  const offencesHTML = r.offences?.length ? `<div class="checker-offences-found"><div class="cof-label">Offence${r.offences.length>1?'s':''} identified</div>${r.offences.map(o=>`<div class="cof-item"><span class="cof-ref">${o.ref}</span><div class="cof-info"><div class="cof-title">${o.title}</div><div class="cof-reason">${o.reason}</div></div><span class="cof-penalty">£${Number(o.penalty).toLocaleString()}</span></div>`).join('')}</div>` : '';
+  const stepsHTML = r.nextSteps?.length ? `<div class="checker-next-steps"><div class="cns-label">Next steps</div><ul class="cns-list">${r.nextSteps.map(s=>`<li>${s}</li>`).join('')}${r.caveat?`<li style="color:var(--amber)">${r.caveat}</li>`:''}</ul></div>` : '';
+  resultEl.innerHTML = `<div class="checker-result-card"><div class="checker-verdict ${r.verdict}"><span class="verdict-icon">${icon}</span><div class="verdict-text"><h3 class="${hc}">${r.headline}</h3><p>${r.summary}</p></div></div>${offencesHTML}${stepsHTML}</div><button class="checker-new-btn" onclick="resetChecker()">← Check another situation</button>`;
+}
+
+function resetChecker() {
+  document.getElementById('checkerInput').value = '';
+  document.getElementById('checkerResult').innerHTML = '';
+  document.getElementById('checkerSubmit').disabled = true;
+  document.getElementById('checkerHint').textContent = '';
+}
+
+// ═══════════════════════════════
+// WORKING DAYS CALCULATOR
+// ═══════════════════════════════
+
+// England & Wales bank holidays — hardcoded through 2027
+// Source: GOV.UK — updated here for offline use
+const BANK_HOLIDAYS_ENG = new Set([
+  // 2024
+  '2024-01-01','2024-03-29','2024-04-01','2024-05-06','2024-05-27',
+  '2024-08-26','2024-12-25','2024-12-26',
+  // 2025
+  '2025-01-01','2025-04-18','2025-04-21','2025-05-05','2025-05-26',
+  '2025-08-25','2025-12-25','2025-12-26',
+  // 2026
+  '2026-01-01','2026-04-03','2026-04-06','2026-05-04','2026-05-25',
+  '2026-08-31','2026-12-25','2026-12-28',
+  // 2027
+  '2027-01-01','2027-03-26','2027-03-29','2027-05-03','2027-05-31',
+  '2027-08-30','2027-12-27','2027-12-28'
+]);
+
+function isoDate(d) {
+  // Returns YYYY-MM-DD string in local time (not UTC)
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
+function isWorkingDay(d) {
+  const dow = d.getDay(); // 0=Sun, 6=Sat
+  if (dow === 0 || dow === 6) return false;
+  if (BANK_HOLIDAYS_ENG.has(isoDate(d))) return false;
+  return true;
+}
+
+function addWorkingDays(startDate, days) {
+  // Returns { date, skipped[] } where skipped lists bank holidays hit
+  const skippedHols = [];
+  let d = new Date(startDate);
+  let count = 0;
+  while (count < days) {
+    d.setDate(d.getDate() + 1);
+    const dow = d.getDay();
+    const iso = isoDate(d);
+    if (dow === 0 || dow === 6) continue; // weekend — silent skip
+    if (BANK_HOLIDAYS_ENG.has(iso)) {
+      skippedHols.push({ iso, name: getBankHolName(iso) });
+      continue; // bank holiday — note and skip
+    }
+    count++;
+  }
+  return { date: new Date(d), skippedHols };
+}
+
+function getBankHolName(iso) {
+  const names = {
+    '2024-01-01':'New Year\'s Day','2024-03-29':'Good Friday','2024-04-01':'Easter Monday',
+    '2024-05-06':'Early May BH','2024-05-27':'Spring BH','2024-08-26':'Summer BH',
+    '2024-12-25':'Christmas Day','2024-12-26':'Boxing Day',
+    '2025-01-01':'New Year\'s Day','2025-04-18':'Good Friday','2025-04-21':'Easter Monday',
+    '2025-05-05':'Early May BH','2025-05-26':'Spring BH','2025-08-25':'Summer BH',
+    '2025-12-25':'Christmas Day','2025-12-26':'Boxing Day',
+    '2026-01-01':'New Year\'s Day','2026-04-03':'Good Friday','2026-04-06':'Easter Monday',
+    '2026-05-04':'Early May BH','2026-05-25':'Spring BH','2026-08-31':'Summer BH',
+    '2026-12-25':'Christmas Day','2026-12-28':'Boxing Day (subst.)',
+    '2027-01-01':'New Year\'s Day','2027-03-26':'Good Friday','2027-03-29':'Easter Monday',
+    '2027-05-03':'Early May BH','2027-05-31':'Spring BH','2027-08-30':'Summer BH',
+    '2027-12-27':'Christmas Day (subst.)','2027-12-28':'Boxing Day (subst.)'
+  };
+  return names[iso] || 'Bank Holiday';
+}
+
+function fmtDateLong(d) {
+  return d.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+}
+
+function fmtDateShort(d) {
+  return d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+}
+
+function renderWorkingDays() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const { date: wd22, skippedHols } = addWorkingDays(today, 22);
+
+  // Second date: wd22 + 14 calendar days
+  const wd22plus14 = new Date(wd22);
+  wd22plus14.setDate(wd22plus14.getDate() + 14);
+
+  // Count total calendar days spanned
+  const calDays = Math.round((wd22 - today) / 86400000);
+
+  const skippedHTML = skippedHols.length > 0
+    ? `<div class="wd-skipped">
+        <div class="wd-skipped-label">Bank holidays skipped (${skippedHols.length})</div>
+        <div class="wd-skipped-items">
+          ${skippedHols.map(h => `<span class="wd-skip-chip">${h.name}</span>`).join('')}
+        </div>
+      </div>`
+    : '';
+
+  document.getElementById('workingDaysResult').innerHTML = `
+    <div class="wd-from-row">
+      <span class="wd-from-label">Calculating from today</span>
+      <span class="wd-from-date">${fmtDateShort(today)}</span>
+    </div>
+    <div class="wd-date-block">
+      <div class="wd-box primary">
+        <div class="wd-box-label">22nd Working Day</div>
+        <div class="wd-box-day">${wd22.toLocaleDateString('en-GB',{weekday:'long'})}</div>
+        <div class="wd-box-date">${wd22.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</div>
+        <div class="wd-box-sub">${wd22.getFullYear()} · ${calDays} calendar days</div>
+      </div>
+      <div class="wd-box secondary">
+        <div class="wd-box-label">+ 14 Calendar Days</div>
+        <div class="wd-box-day">${wd22plus14.toLocaleDateString('en-GB',{weekday:'long'})}</div>
+        <div class="wd-box-date">${wd22plus14.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</div>
+        <div class="wd-box-sub">${wd22plus14.getFullYear()} · all days</div>
+      </div>
+    </div>
+    ${skippedHTML}`;
+
+  // Try to refresh from GOV.UK API if online (non-blocking)
+  refreshBankHolsFromGovUK();
+}
+
+async function refreshBankHolsFromGovUK() {
+  try {
+    const r = await fetch('https://www.gov.uk/bank-holidays.json');
+    if (!r.ok) return;
+    const data = await r.json();
+    const events = data['england-and-wales']?.events || [];
+    events.forEach(e => BANK_HOLIDAYS_ENG.add(e.date));
+    // Re-render silently with updated data
+    renderWorkingDays();
+  } catch { /* offline or blocked — hardcoded data is fine */ }
+}
+
+// PWA SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  const swCode = `const CACHE='panoptes-v1';self.addEventListener('install',e=>{self.skipWaiting()});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});self.addEventListener('fetch',e=>{e.respondWith(caches.open(CACHE).then(cache=>cache.match(e.request).then(cached=>{const fresh=fetch(e.request).then(res=>{if(res&&res.status===200)cache.put(e.request,res.clone());return res}).catch(()=>cached);return cached||fresh})))});`;
+  const blob = new Blob([swCode], {type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+
+// INIT
+populateCalcSelect();
+renderCards();
+const todayISO = new Date().toISOString().split('T')[0];
+document.getElementById('calcDate').value = todayISO;
+document.getElementById('ninetyDate').value = todayISO;
+updateCalc();
+checkNinety();
+renderWorkingDays();
+</script>
+</body>
+</html>
