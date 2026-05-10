@@ -1362,6 +1362,151 @@ body::after {
   padding: 4px 8px;
 }
 
+/* Plain English box */
+.sroh-pe-box {
+  background: linear-gradient(135deg, rgba(15,118,110,0.07), rgba(20,184,166,0.04));
+  border: 1px solid rgba(15,118,110,0.18);
+  border-radius: var(--radius-sm);
+  padding: 13px 14px;
+  margin: 0 16px 4px;
+}
+.sroh-pe-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.sroh-pe-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.65;
+  white-space: pre-line;
+}
+.sroh-pe-text strong { color: var(--teal); font-weight: 700; }
+
+/* Patch calculator */
+.sroh-patch-wrap {
+  border-top: 1px solid var(--border-light);
+  padding: 14px 16px 4px;
+}
+.sroh-patch-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.sroh-patch-intro {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 10px;
+}
+.sroh-patch-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sroh-patch-field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--text3);
+  margin-bottom: 5px;
+}
+.sroh-patch-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 12px;
+  outline: none;
+  -webkit-appearance: none;
+  transition: border-color 0.15s;
+}
+.sroh-patch-input:focus { border-color: var(--teal); }
+
+/* Patch result */
+.sroh-patch-result {
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.sroh-patch-result-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--teal-dim);
+}
+.sroh-patch-step {
+  display: flex;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+  align-items: flex-start;
+}
+.sroh-patch-step strong { color: var(--text); font-weight: 600; }
+.sroh-patch-num {
+  background: var(--teal);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.sroh-patch-verdict {
+  padding: 10px 12px;
+  background: var(--surface);
+}
+.sroh-pv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+  color: var(--text2);
+  gap: 10px;
+}
+.sroh-pv-row:last-of-type { border-bottom: none; }
+.sroh-pv-val {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.sroh-pv-val.teal { color: var(--teal); }
+.sroh-pv-val.amber { color: var(--amber); }
+.sroh-pv-tip {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 8px;
+  line-height: 1.5;
+  font-style: italic;
+  border-top: 1px solid var(--border-light);
+  padding-top: 8px;
+}
+
 /* ═══════════════════════════════════════════
    BOTTOM NAV
 ═══════════════════════════════════════════ */
@@ -2679,17 +2824,202 @@ function srohRenderResult() {
   const fpnHTML = fpns.length ? `<div class="sroh-fpn-section"><div class="sroh-fpn-label">Applicable FPN sections</div>${fpns.map(f=>`<div class="sroh-fpn-item"><span class="sroh-fpn-ref">${f.ref}</span><div class="sroh-fpn-info"><div class="sroh-fpn-title">${f.title}</div><div class="sroh-fpn-why">${f.why}</div></div><span class="sroh-fpn-penalty">£${f.penalty.toLocaleString()}</span></div>`).join('')}</div>` : '';
   const surfLabels = { flexible:'Flexible (asphalt)', rigid:'Rigid (concrete)', modular:'Modular (block/setts)' };
 
+  // ── PLAIN ENGLISH ──────────────────────────────────────────────────────
+  const plainEnglish = srohPlainEnglish(surface, category, inspection, data);
+
+  // ── PATCH CALCULATOR HTML ───────────────────────────────────────────────
+  const patchCalcHTML = srohPatchCalcHTML(inspection);
+
   document.getElementById('sroh-result').innerHTML = `
     <div class="sroh-result-card">
       <div class="sroh-result-header">
         <h3>${inspDef.icon} ${inspDef.label}</h3>
         <p>${surfLabels[surface]} · ${catDef.label} — ${catDef.desc}</p>
       </div>
+      <div class="sroh-pe-box">
+        <div class="sroh-pe-label">💬 What this means on site</div>
+        <div class="sroh-pe-text">${plainEnglish}</div>
+      </div>
       <div class="sroh-spec-grid">${specHTML}</div>
       ${noteHTML}
+      ${patchCalcHTML}
       ${fpnHTML}
     </div>`;
   document.getElementById('sroh-result').classList.remove('sroh-hidden');
+}
+
+// ── PLAIN ENGLISH GENERATOR ────────────────────────────────────────────────
+function srohPlainEnglish(surface, category, inspection, data) {
+  const catLabels = { '0':'motorway or trunk road', '1':'A road or major urban road', '2':'B road or local distributor', '3':'residential or minor road', '4':'minor road or cul-de-sac', 'fw_b':'heavily used footway', 'fw_c':'standard footway', 'fw_d':'lightly used footway', 'verge':'verge or unpaved area', 'carr':'block paved carriageway' };
+  const catLabel = catLabels[category] || category;
+  const isFW = ['fw_b','fw_c','fw_d'].includes(category);
+  const seLabel = (surface === 'flexible' || surface === 'rigid') && !isFW ? '3-metre straight edge' : '1.8-metre straight edge';
+
+  if (inspection === 'levels') {
+    const permLimit = '6mm';
+    const intDepr = data.interim_depr || '13mm max';
+    const intCrown = data.interim_crown || '+10mm';
+    if (category === 'verge') {
+      return `On a verge, there are no tight level tolerances — but the reinstated ground should sit level with the surrounding area, within about 25mm either way. The main thing is it must not be so high it creates a mowing hazard, or so low it causes ponding. Reinstate with matching topsoil and seed.`;
+    }
+    return `You're checking a reinstatement on a <strong>${catLabel}</strong>. Use a <strong>${seLabel}</strong> — lay it across the patch in multiple directions including diagonally.\n\nFor a <strong>permanent reinstatement</strong>, the surface must not be more than <strong>${permLimit} proud</strong> (sticking up above the surrounding road) and not more than <strong>${permLimit} sunken</strong> (below the surrounding road) anywhere under the straight edge.\n\nFor an <strong>interim reinstatement</strong> (temporary patch), there's slightly more leeway — up to <strong>${intCrown} proud</strong> and <strong>${intDepr} sunken</strong> are acceptable while the permanent fix is awaited.\n\nIf you can slide a 7mm coin (a 50p is about 3mm thick — two of them is 6mm) under the straight edge, that's a fail on permanent reinstatement. Any visible rocking of the straight edge when you press it down indicates a high spot.`;
+  }
+
+  if (inspection === 'regularity') {
+    const gap = data.max_gap || '7mm';
+    const lipping = data.lipping ? ` For block or flag surfaces, lipping (a step between adjacent units) must not exceed <strong>${data.lipping}</strong> — any step you can catch your toe on is too much.` : '';
+    return `Regularity is about how smooth the surface is when you run a straight edge along it — it's a different check from overall levels.\n\nLay your <strong>${seLabel}</strong> along the surface in the direction of travel. The maximum gap anywhere between the straight edge and the surface is <strong>${gap}</strong>. Move the straight edge across the full width of the reinstatement and check in both directions — along and across the patch.${lipping}\n\nA gap bigger than ${gap} means the surface is not smooth enough — it'll cause discomfort or noise for vehicles, and on a footway it's a trip hazard. That's a spec failure.`;
+  }
+
+  if (inspection === 'layers') {
+    const surf = data.surface.depth;
+    const guar = data.guarantee;
+    const imax = data.interim_max;
+    return `Layer depths are what you'd check if you have concerns about the depth of the reinstatement — either by core sample, or where you can observe an exposed edge.\n\nOn a <strong>${catLabel}</strong> the surface course must be at least <strong>${surf}</strong> thick. If it looks thin — like a skin of tarmac over rubble — that's a likely spec failure.\n\nThe permanent reinstatement must be laid within <strong>${imax} of the works being completed</strong>. If a temporary patch is still sitting there beyond that deadline, that's a C10 offence regardless of how good it looks.\n\nOnce permanent reinstatement is laid, the undertaker is responsible for it for <strong>${guar}</strong> — so any failure within that period is their liability to fix at no cost to the authority.`;
+  }
+
+  if (inspection === 'materials') {
+    const isModular = surface === 'modular';
+    if (isModular) {
+      return `For block or flag surfaces, matching the existing material is critical — it's not just about function, it's about appearance, particularly in town centres and conservation areas.\n\nThe blocks must match the <strong>existing type, size, colour, surface finish and bond pattern</strong>. New blocks that are a slightly different shade or size will be visible and may not be accepted by the authority — particularly in sensitive areas.\n\nBedding sand must be <strong>sharp sand</strong> (not building sand) and laid to the correct depth. Building sand compacts differently and causes the surface to sink over time.`;
+    }
+    return `On a <strong>${catLabel}</strong>, the surface material must be appropriate for the road category and must broadly match the existing surface in terms of texture, finish and appearance.\n\nThe key things to look for on site: does the surface look like it matches the rest of the road? Is it visibly rough, loose, or a completely different colour or texture? Has a low-spec material been used where a higher spec is required (e.g. plain cold-lay on a busy A road)?\n\nIf the surface texture looks very different from the surrounding road, or the finish looks significantly lower quality, that's a materials spec issue — C18.`;
+  }
+
+  if (inspection === 'frames') {
+    const tol = isFW ? '3mm' : '6mm';
+    return `Any frame, cover, gully top or ironwork within or adjacent to the reinstatement must sit flush with the surrounding surface — within <strong>±${tol}</strong> on this type of surface.\n\nThe quickest check: press down on the edge of the cover. If it rocks or moves, the surround has failed. If it's proud — step on it and see if there's a definite step. More than ${tol} proud on a footway is a trip hazard and is a mandatory defect.\n\nAlso check: is the concrete haunching around the frame cracked, missing, or pulling away? Any void around the frame means water is getting in and the surround will fail. That's S.59.\n\nGully tops must not be obstructed or raised — water must be able to flow in freely.`;
+  }
+
+  if (inspection === 'markings') {
+    return `Road markings are part of the reinstatement — they're not optional extras. If the undertaker has covered, damaged or removed any road markings during their works, they are required to reinstate them on the permanent surface.\n\nThis includes: white lines, yellow lines, hatching, pedestrian crossing markings, give way triangles, and raised pavement markers (cats eyes).\n\nMarkings must be reinstated <strong>within 14 days of the permanent surface being laid</strong>. If the tarmac has been down for more than 14 days and the lines aren't back — that's a S.74 issue (works not actually complete) and potentially S.59.\n\nIf the completion notice has already been submitted but markings are missing — that completion notice should be challenged.`;
+  }
+
+  return 'Select surface type, road category and inspection type to see plain English guidance.';
+}
+
+// ── PATCH CALCULATOR ────────────────────────────────────────────────────────
+function srohPatchCalcHTML(inspection) {
+  // Only relevant for levels and regularity
+  if (!['levels','regularity'].includes(inspection)) return '';
+  return `
+    <div class="sroh-patch-wrap">
+      <div class="sroh-patch-label">📐 Patch Size Calculator</div>
+      <p class="sroh-patch-intro">Enter the patch dimensions to get specific measurement guidance.</p>
+      <div class="sroh-patch-inputs">
+        <div class="sroh-patch-field">
+          <label>Length (m)</label>
+          <input type="number" id="patchLength" class="sroh-patch-input" placeholder="e.g. 2.3" step="0.1" min="0.1" oninput="srohCalcPatch()">
+        </div>
+        <div class="sroh-patch-field">
+          <label>Width (m)</label>
+          <input type="number" id="patchWidth" class="sroh-patch-input" placeholder="e.g. 1.0" step="0.1" min="0.1" oninput="srohCalcPatch()">
+        </div>
+      </div>
+      <div id="patchGuidance"></div>
+    </div>`;
+}
+
+function srohCalcPatch() {
+  const len = parseFloat(document.getElementById('patchLength')?.value);
+  const wid = parseFloat(document.getElementById('patchWidth')?.value);
+  const el = document.getElementById('patchGuidance');
+  if (!el) return;
+  if (!len || !wid || len <= 0 || wid <= 0) { el.innerHTML = ''; return; }
+
+  const { surface, category, inspection } = srohState;
+  const isFW = ['fw_b','fw_c','fw_d'].includes(category);
+  const seLen = isFW ? 1.8 : 3.0;
+  const seName = isFW ? '1.8m straight edge' : '3m straight edge';
+
+  // Work out how many passes are needed
+  const longDim = Math.max(len, wid);
+  const shortDim = Math.min(len, wid);
+  const longLabel = len >= wid ? 'length' : 'width';
+  const shortLabel = len >= wid ? 'width' : 'length';
+
+  // Number of straight edge positions along short dimension
+  const passesAlong = Math.ceil(shortDim / (seLen * 0.5)) + 1;
+  const passesAcross = Math.ceil(longDim / (seLen * 0.5)) + 1;
+
+  // Get tolerance values
+  const specsData = SROH_SPECS[surface];
+  const catKey = (inspection === 'frames' || inspection === 'markings') ? 'all' : category;
+  const data = specsData?.[inspection]?.[catKey];
+  if (!data) return;
+
+  let guidanceHTML = '';
+
+  if (inspection === 'levels') {
+    const permLimit = '6mm';
+    const intDepr = data.interim_depr;
+    const intCrown = data.interim_crown;
+
+    // Advice on whether 3m straight edge fits
+    const edgeFits = longDim >= seLen;
+    const edgeNote = edgeFits
+      ? `Your ${longLabel} (${longDim.toFixed(1)}m) is longer than the ${seName} — good. You can take a full-length reading.`
+      : `Your patch (${longDim.toFixed(1)}m longest dimension) is <strong>shorter than the ${seName}</strong>. Lay the straight edge so it bridges from the existing road surface on one side, across the reinstatement, to the existing surface on the other side — that way you're comparing the patch level against the surrounding road.`;
+
+    guidanceHTML = `
+      <div class="sroh-patch-result">
+        <div class="sroh-patch-result-title">Measurement guidance for ${len.toFixed(1)}m × ${wid.toFixed(1)}m patch</div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">1</span>
+          <div><strong>Tool:</strong> Use your <strong>${seName}</strong>. ${edgeNote}</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">2</span>
+          <div><strong>Along the ${longLabel}:</strong> Take readings every 500mm to 1m — aim for at least <strong>${Math.max(2, Math.ceil(longDim / 0.75))} positions</strong> along the ${longLabel}.</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">3</span>
+          <div><strong>Across the ${shortLabel}:</strong> Also check across the width — at least <strong>${Math.max(2, Math.ceil(shortDim / 0.5))} positions</strong> across.</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">4</span>
+          <div><strong>Diagonals:</strong> Place the straight edge corner to corner across the patch — diagonal readings often catch a crown or hollow that straight readings miss.</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">5</span>
+          <div><strong>Edges:</strong> Check where the reinstatement meets the existing road surface — this is where level differences are most common and most noticeable.</div>
+        </div>
+        <div class="sroh-patch-verdict">
+          <div class="sroh-pv-row"><span>Permanent reinstatement — max proud or sunken</span><span class="sroh-pv-val teal">±${permLimit}</span></div>
+          <div class="sroh-pv-row"><span>Interim — max proud</span><span class="sroh-pv-val amber">${intCrown}</span></div>
+          <div class="sroh-pv-row"><span>Interim — max sunken</span><span class="sroh-pv-val amber">${intDepr}</span></div>
+          <div class="sroh-pv-tip">💡 Tip: a standard 10p coin is about 1.85mm thick. Three stacked = ~5.5mm. Four stacked = ~7.4mm. Use as a rough field gauge under the straight edge.</div>
+        </div>
+      </div>`;
+
+  } else if (inspection === 'regularity') {
+    const gap = data.max_gap || '7mm';
+    const lipping = data.lipping;
+    guidanceHTML = `
+      <div class="sroh-patch-result">
+        <div class="sroh-patch-result-title">Measurement guidance for ${len.toFixed(1)}m × ${wid.toFixed(1)}m patch</div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">1</span>
+          <div><strong>Tool:</strong> <strong>${seName}</strong>. Lay it in the direction of travel first.</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">2</span>
+          <div><strong>Along the ${longLabel} (${longDim.toFixed(1)}m):</strong> At least <strong>${Math.max(2, Math.ceil(longDim / 0.75))} positions</strong>, spread evenly across the width of the patch.</div>
+        </div>
+        <div class="sroh-patch-step">
+          <span class="sroh-patch-num">3</span>
+          <div><strong>Across the ${shortLabel} (${shortDim.toFixed(1)}m):</strong> At least <strong>${Math.max(2, Math.ceil(shortDim / 0.5))} positions</strong> across the patch.</div>
+        </div>
+        ${lipping ? `<div class="sroh-patch-step"><span class="sroh-patch-num">4</span><div><strong>Lipping check:</strong> Run your finger or a coin along the joints between units — any step you can feel clearly is likely over ${lipping}. Use a feeler gauge or coins to confirm.</div></div>` : ''}
+        <div class="sroh-patch-verdict">
+          <div class="sroh-pv-row"><span>Max gap under straight edge</span><span class="sroh-pv-val teal">${gap}</span></div>
+          ${lipping ? `<div class="sroh-pv-row"><span>Max lipping between units</span><span class="sroh-pv-val teal">${lipping}</span></div>` : ''}
+          <div class="sroh-pv-tip">💡 Tip: a 5p coin is about 1.7mm thick. Stack coins to make a gauge — four 5p coins ≈ 7mm.</div>
+        </div>
+      </div>`;
+  }
+
+  el.innerHTML = guidanceHTML;
 }
 
 function srohReset() {
