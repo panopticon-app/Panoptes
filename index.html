@@ -1080,6 +1080,289 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
+   SROH MODULE
+═══════════════════════════════════════════ */
+.sroh-section { padding: 14px 14px 120px; }
+
+.sroh-intro {
+  background: linear-gradient(135deg, #0c6158, var(--teal));
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  text-align: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(15,118,110,0.2);
+}
+.sroh-intro-icon { font-size: 30px; display: block; margin-bottom: 8px; }
+.sroh-intro h2 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -0.3px; }
+.sroh-intro p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+.sroh-step {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sroh-hidden { display: none; }
+
+.sroh-step-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+
+.sroh-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.sroh-btn-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.sroh-btn-grid.one { grid-template-columns: 1fr; }
+
+.sroh-btn {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 10px;
+  text-align: left;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.3;
+}
+.sroh-btn span {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text3);
+}
+.sroh-btn:hover { border-color: var(--teal); background: var(--teal-dim); }
+.sroh-btn:hover span { color: var(--teal); }
+.sroh-btn.selected { border-color: var(--teal); background: var(--teal-dim); color: var(--teal); }
+.sroh-btn.selected span { color: var(--teal); }
+
+.sroh-cat-info {
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 10px;
+  line-height: 1.4;
+  background: var(--teal-dim);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  border: 1px solid rgba(15,118,110,0.12);
+}
+
+/* Result card */
+.sroh-result-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.sroh-result-header {
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--teal-dim), transparent);
+  border-bottom: 1px solid var(--border-light);
+}
+.sroh-result-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.sroh-result-header p {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.sroh-spec-grid {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sroh-spec-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+  gap: 12px;
+}
+.sroh-spec-row:last-child { border-bottom: none; }
+
+.sroh-spec-label {
+  font-size: 12px;
+  color: var(--text2);
+  flex: 1;
+  line-height: 1.4;
+}
+.sroh-spec-label strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 1px; }
+
+.sroh-spec-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  flex-shrink: 0;
+  max-width: 130px;
+  line-height: 1.3;
+}
+.sroh-spec-val.teal { color: var(--teal); }
+.sroh-spec-val.amber { color: var(--amber); }
+
+/* Tolerance verdict */
+.sroh-verdict-section {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-light);
+  background: var(--surface2);
+}
+.sroh-verdict-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+
+.sroh-tolerance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.sroh-tolerance-item:last-child { border-bottom: none; }
+
+.sroh-tol-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.sroh-tol-icon.breach { background: var(--coral-dim); }
+.sroh-tol-icon.pass { background: var(--teal-dim); }
+.sroh-tol-icon.marginal { background: var(--amber-dim); }
+
+.sroh-tol-info { flex: 1; }
+.sroh-tol-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.sroh-tol-detail { font-size: 12px; color: var(--text2); line-height: 1.4; }
+.sroh-tol-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.sroh-tol-val.breach { color: var(--coral); }
+.sroh-tol-val.pass { color: var(--teal); }
+.sroh-tol-val.marginal { color: var(--amber); }
+
+/* FPN links */
+.sroh-fpn-section {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-light);
+}
+.sroh-fpn-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.sroh-fpn-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.sroh-fpn-item:last-child { border-bottom: none; }
+.sroh-fpn-ref {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--coral-dim);
+  color: var(--coral);
+  border: 1px solid rgba(225,29,72,0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.sroh-fpn-info { flex: 1; }
+.sroh-fpn-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.sroh-fpn-why { font-size: 12px; color: var(--text2); line-height: 1.4; }
+.sroh-fpn-penalty {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  flex-shrink: 0;
+}
+
+.sroh-note {
+  background: var(--amber-dim);
+  border: 1px solid rgba(217,119,6,0.25);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 500;
+  margin: 12px 16px 0;
+}
+
+.sroh-reset {
+  display: block;
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text2);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px;
+  text-align: center;
+  transition: all 0.15s;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.sroh-reset:hover { border-color: var(--teal); color: var(--teal); }
+
+.sroh-disclaimer {
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+  line-height: 1.5;
+  padding: 4px 8px;
+}
+
+/* ═══════════════════════════════════════════
    BOTTOM NAV
 ═══════════════════════════════════════════ */
 .bottom-nav {
@@ -1203,6 +1486,7 @@ body::after {
   <button class="nav-tab active" onclick="showSection('offences', this)">All Offences</button>
   <button class="nav-tab" onclick="showSection('calculator', this)">Calculator</button>
   <button class="nav-tab" onclick="showSection('checker', this)">Offence Checker</button>
+  <button class="nav-tab" onclick="showSection('sroh', this)">SROH</button>
   <button class="nav-tab" onclick="showSection('info', this)">Quick Reference</button>
 </div>
 
@@ -1568,6 +1852,52 @@ body::after {
   </div>
 </div>
 
+<!-- ═══ SROH ═══ -->
+<div class="section" id="sec-sroh">
+  <div class="sroh-section">
+
+    <div class="sroh-intro">
+      <span class="sroh-intro-icon">🛣️</span>
+      <h2>SROH Inspection Checker</h2>
+      <p>Select road category and inspection type to get the spec, tolerances and applicable FPN sections.</p>
+    </div>
+
+    <!-- STEP 1: Surface Type -->
+    <div class="sroh-step" id="sroh-step1">
+      <div class="sroh-step-label">Step 1 — Surface Type</div>
+      <div class="sroh-btn-grid">
+        <button class="sroh-btn" onclick="srohSelect('surface','flexible')">🔲 Flexible<span>Asphalt / bituminous</span></button>
+        <button class="sroh-btn" onclick="srohSelect('surface','rigid')">⬜ Rigid<span>Concrete</span></button>
+        <button class="sroh-btn" onclick="srohSelect('surface','modular')">🟫 Modular<span>Block / setts / flags</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Road Category -->
+    <div class="sroh-step sroh-hidden" id="sroh-step2">
+      <div class="sroh-step-label">Step 2 — Road Category</div>
+      <div class="sroh-cat-info">
+        <span id="sroh-cat-hint"></span>
+      </div>
+      <div class="sroh-btn-grid" id="sroh-cat-grid"></div>
+    </div>
+
+    <!-- STEP 3: Inspection Type -->
+    <div class="sroh-step sroh-hidden" id="sroh-step3">
+      <div class="sroh-step-label">Step 3 — What are you inspecting?</div>
+      <div class="sroh-btn-grid" id="sroh-insp-grid"></div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="sroh-hidden" id="sroh-result"></div>
+
+    <!-- Reset -->
+    <button class="sroh-reset sroh-hidden" id="sroh-reset-btn" onclick="srohReset()">↩ Start again</button>
+
+    <div class="sroh-disclaimer">Based on SROH 4th Edition (2023). Always verify against your authority's current specification. For guidance only.</div>
+
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button class="bnav-item active" id="bnav-offences" onclick="showSection('offences', null, true)">
@@ -1581,6 +1911,10 @@ body::after {
   <button class="bnav-item" id="bnav-checker" onclick="showSection('checker', null, true)">
     <span class="bnav-icon">🔍</span>
     <span class="bnav-label">Checker</span>
+  </button>
+  <button class="bnav-item" id="bnav-sroh" onclick="showSection('sroh', null, true)">
+    <span class="bnav-icon">🛣️</span>
+    <span class="bnav-label">SROH</span>
   </button>
   <button class="bnav-item" id="bnav-info" onclick="showSection('info', null, true)">
     <span class="bnav-icon">📚</span>
@@ -1649,7 +1983,7 @@ function showSection(name, tabEl) {
     tabEl.classList.add('active');
   } else {
     const tabs = document.querySelectorAll('.nav-tab');
-    const map = {offences:0, calculator:1, checker:2, info:3};
+    const map = {offences:0, calculator:1, checker:2, sroh:3, info:4};
     tabs.forEach(t => t.classList.remove('active'));
     if (map[name] !== undefined) tabs[map[name]].classList.add('active');
   }
@@ -2067,6 +2401,305 @@ async function refreshBankHolsFromGovUK() {
     // Re-render silently with updated data
     renderWorkingDays();
   } catch { /* offline or blocked — hardcoded data is fine */ }
+}
+
+// ═══════════════════════════════
+// SROH MODULE
+// ═══════════════════════════════
+
+const SROH_CATEGORIES = {
+  flexible: [
+    { id:'0',     label:'Cat 0',      desc:'Motorway / trunk road',        detail:'High-speed strategic network. Highest spec.' },
+    { id:'1',     label:'Cat 1',      desc:'A road / major urban',          detail:'Principal roads, high traffic volume.' },
+    { id:'2',     label:'Cat 2',      desc:'B road / local distributor',    detail:'Secondary roads, moderate traffic.' },
+    { id:'3',     label:'Cat 3',      desc:'Residential / minor road',      detail:'Low traffic residential streets.' },
+    { id:'4',     label:'Cat 4',      desc:'Minor road / cul-de-sac',       detail:'Very lightly trafficked.' },
+    { id:'fw_b',  label:'Footway B',  desc:'Heavily trafficked footway',    detail:'Town centre, busy pedestrian routes.' },
+    { id:'fw_c',  label:'Footway C',  desc:'Normal footway',                detail:'Standard residential/urban footway.' },
+    { id:'fw_d',  label:'Footway D',  desc:'Lightly used footway',          detail:'Quiet residential footway.' },
+    { id:'verge', label:'Verge',      desc:'Grass verge / unpaved',         detail:'Unpaved verge or unmade ground.' },
+  ],
+  rigid: [
+    { id:'0', label:'Cat 0', desc:'Motorway / trunk road', detail:'High-speed strategic network.' },
+    { id:'1', label:'Cat 1', desc:'A road / major urban',  detail:'Principal roads, high traffic.' },
+    { id:'2', label:'Cat 2', desc:'B road / local distributor', detail:'Secondary roads.' },
+    { id:'3', label:'Cat 3', desc:'Residential / minor road',   detail:'Low traffic residential.' },
+    { id:'4', label:'Cat 4', desc:'Minor road / cul-de-sac',    detail:'Very lightly trafficked.' },
+  ],
+  modular: [
+    { id:'fw_b', label:'Footway B',    desc:'Heavily trafficked footway', detail:'Town centre, high footfall.' },
+    { id:'fw_c', label:'Footway C',    desc:'Normal footway',             detail:'Standard urban/residential.' },
+    { id:'fw_d', label:'Footway D',    desc:'Lightly used footway',       detail:'Quiet, low footfall.' },
+    { id:'carr', label:'Carriageway',  desc:'Block paved carriageway',    detail:'Shared surface, market square, heritage.' },
+  ]
+};
+
+const SROH_INSPECTIONS = {
+  flexible: [
+    { id:'levels',     label:'Surface Levels',  icon:'📏', desc:'Crowning & depression' },
+    { id:'regularity', label:'Regularity',       icon:'〰️', desc:'Smoothness / rideability' },
+    { id:'layers',     label:'Layer Depths',     icon:'📐', desc:'Surface, binder, base, subbase' },
+    { id:'materials',  label:'Materials',        icon:'🧱', desc:'Mix type, texture, finish' },
+    { id:'frames',     label:'Frames & Covers',  icon:'🔲', desc:'Ironwork, gully tops' },
+    { id:'markings',   label:'Road Markings',    icon:'🟨', desc:'Lines, studs, thermoplastic' },
+  ],
+  rigid: [
+    { id:'levels',    label:'Surface Levels', icon:'📏', desc:'Crowning & depression' },
+    { id:'layers',    label:'Layer Depths',   icon:'📐', desc:'Slab, sub-base' },
+    { id:'materials', label:'Materials',      icon:'🧱', desc:'Concrete spec, finish' },
+    { id:'frames',    label:'Frames & Covers',icon:'🔲', desc:'Ironwork, gully tops' },
+    { id:'markings',  label:'Road Markings',  icon:'🟨', desc:'Lines, studs' },
+  ],
+  modular: [
+    { id:'levels',     label:'Surface Levels', icon:'📏', desc:'Crowning & depression' },
+    { id:'regularity', label:'Regularity',     icon:'〰️', desc:'Lipping between units' },
+    { id:'layers',     label:'Layer Depths',   icon:'📐', desc:'Block, bedding, base, subbase' },
+    { id:'materials',  label:'Materials',      icon:'🧱', desc:'Block type, colour match, bedding' },
+    { id:'frames',     label:'Frames & Covers',icon:'🔲', desc:'Ironwork, gully tops, kerbs' },
+    { id:'markings',   label:'Road Markings',  icon:'🟨', desc:'Lines, studs (where applicable)' },
+  ]
+};
+
+const SROH_SPECS = {
+  flexible: {
+    levels: {
+      '0':    { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'10mm max', note:'Measured with 3m straight edge. Zero tolerance on motorways for depression >6mm.' },
+      '1':    { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'10mm max', note:'Measured with 3m straight edge.' },
+      '2':    { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'Measured with 3m straight edge.' },
+      '3':    { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'Measured with 3m straight edge.' },
+      '4':    { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+13mm', interim_depr:'13mm max', note:'Measured with 3m straight edge.' },
+      'fw_b': { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'Measured with 1.8m straight edge on footways.' },
+      'fw_c': { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'1.8m straight edge.' },
+      'fw_d': { crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+13mm', interim_depr:'13mm max', note:'1.8m straight edge.' },
+      'verge':{ crown:'Match existing ±25mm', depression:'25mm max', interim_crown:'+25mm', interim_depr:'25mm max', note:'Reinstate to match surrounding levels. Topsoil and seeding required.' },
+    },
+    regularity: {
+      '0':    { straightedge:'3m straight edge', max_gap:'4mm',  note:'Cat 0 — tightest tolerance. Any gap >4mm is a breach.' },
+      '1':    { straightedge:'3m straight edge', max_gap:'4mm',  note:'Cat 1 — as Cat 0.' },
+      '2':    { straightedge:'3m straight edge', max_gap:'7mm',  note:'Cat 2 — moderate tolerance.' },
+      '3':    { straightedge:'3m straight edge', max_gap:'7mm',  note:'Cat 3 — as Cat 2.' },
+      '4':    { straightedge:'3m straight edge', max_gap:'10mm', note:'Cat 4 — lightly trafficked, wider tolerance.' },
+      'fw_b': { straightedge:'1.8m straight edge', max_gap:'7mm',  note:'Footway B — 7mm max.' },
+      'fw_c': { straightedge:'1.8m straight edge', max_gap:'7mm',  note:'Footway C.' },
+      'fw_d': { straightedge:'1.8m straight edge', max_gap:'10mm', note:'Footway D — quiet footway.' },
+      'verge':{ straightedge:'N/A', max_gap:'N/A', note:'Regularity not formally measured on verges.' },
+    },
+    layers: {
+      '0':    { surface:{depth:'40mm min', material:'HRA or SMA — high-stone content'}, binder:{depth:'60mm min', material:'Dense bitumen macadam or HRA'}, base:{depth:'150mm min', material:'DBM or HDM'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'3 years', interim_max:'3 months', note:'Total minimum bound depth 250mm.' },
+      '1':    { surface:{depth:'40mm min', material:'HRA or SMA'}, binder:{depth:'60mm min', material:'DBM or HRA'}, base:{depth:'100mm min', material:'DBM or HDM'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'3 years', interim_max:'3 months', note:'Total bound depth 200mm min.' },
+      '2':    { surface:{depth:'40mm min', material:'HRA, SMA or 6mm dense macadam'}, binder:{depth:'50mm min', material:'DBM'}, base:{depth:'100mm min', material:'DBM'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Total bound depth 190mm min.' },
+      '3':    { surface:{depth:'30mm min', material:'6mm or 10mm dense macadam'}, binder:{depth:'50mm min', material:'DBM (if required)'}, base:{depth:'100mm min', material:'DBM or lean concrete'}, subbase:{depth:'100mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Minimum bound depth 180mm.' },
+      '4':    { surface:{depth:'25mm min', material:'6mm dense macadam'}, binder:{depth:'40mm min (if used)', material:'DBM'}, base:{depth:'75mm min', material:'DBM or lean concrete'}, subbase:{depth:'100mm min', material:'Type 1 or Type 2'}, guarantee:'2 years', interim_max:'6 months', note:'Cat 4 — reduced depths.' },
+      'fw_b': { surface:{depth:'30mm min', material:'6mm dense macadam, matching existing'}, binder:{depth:'40mm min', material:'DBM'}, base:{depth:'100mm min', material:'DBM or concrete'}, subbase:{depth:'100mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Match existing surface texture and colour as closely as possible.' },
+      'fw_c': { surface:{depth:'25mm min', material:'6mm dense macadam'}, binder:{depth:'40mm min (if used)', material:'DBM'}, base:{depth:'75mm min', material:'DBM or concrete'}, subbase:{depth:'75mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Match existing surface.' },
+      'fw_d': { surface:{depth:'20mm min', material:'6mm dense macadam or gravel'}, binder:{depth:'Not required', material:'N/A'}, base:{depth:'75mm min', material:'Hardcore or granular'}, subbase:{depth:'75mm min', material:'Type 2 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Minimum spec for lightly used footway.' },
+      'verge':{ surface:{depth:'100mm topsoil min', material:'Matching topsoil, seed to match'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'150mm backfill', material:'Inert granular fill compacted'}, guarantee:'2 years', interim_max:'6 months', note:'Reinstate topsoil and seed. Temporary protection until established.' },
+    },
+    materials: {
+      '0':    { surface_mat:'HRA or SMA. Pre-coated chippings on HRA.', texture:'High skid resistance — PSV ≥65 typically required', finish:'Flush ±3mm. Match existing texture.', note:'Surface texture depth (SRD) must meet HA requirement — typically 1.5mm min on high-speed roads.' },
+      '1':    { surface_mat:'HRA or SMA. AC close-graded acceptable.', texture:'High skid resistance — PSV ≥60', finish:'Flush ±6mm. Texture to match.', note:'Confirm surface course spec with highway authority.' },
+      '2':    { surface_mat:'Dense bitumen macadam, AC 6mm or 10mm close-graded.', texture:'Standard skid resistance — PSV ≥50', finish:'Flush ±6mm. Texture and colour to broadly match.', note:'' },
+      '3':    { surface_mat:'DBM 6mm or 10mm. Surface dressing acceptable.', texture:'Standard skid resistance', finish:'Flush ±6mm.', note:'' },
+      '4':    { surface_mat:'DBM 6mm. Surface dressing or gravel acceptable.', texture:'Basic skid resistance', finish:'Flush ±10mm.', note:'' },
+      'fw_b': { surface_mat:'Match existing — asphalt, flags or block as appropriate.', texture:'Match existing. Anti-slip where required.', finish:'Flush ±6mm. Colour match important in town centres.', note:'Conservation areas — consult authority before starting.' },
+      'fw_c': { surface_mat:'DBM 6mm or match existing.', texture:'Standard pedestrian surface.', finish:'Flush ±6mm.', note:'' },
+      'fw_d': { surface_mat:'Gravel, DBM or match existing.', texture:'Basic.', finish:'Flush ±10mm.', note:'' },
+      'verge':{ surface_mat:'Topsoil (100mm min) matching existing. Seed with appropriate grass mix.', texture:'N/A', finish:'Match surrounding ground level.', note:'Kerb haunching and edging to be reinstated if disturbed.' },
+    },
+    frames:   { all:{ level_perm:'±6mm of surrounding surface', level_fw:'±3mm of surrounding surface', settlement:'No settlement or rocking. Frame must be stable.', surround:'Haunching in concrete C20 min. No voids.', gully:'Flush ±6mm. Flow path must not be obstructed.', kerbs:'Reset to original line and level. Haunching reinstated.', note:'Any frame/cover that rocks, is loose, or exceeds tolerance is a defect. >6mm proud on footway = trip hazard.' } },
+    markings: { all:{ requirement:'All road markings disturbed or covered must be reinstated on permanent reinstatement.', timing:'14 days of permanent surface course being laid.', type:'Match existing — thermoplastic, epoxy or paint as originally installed.', colour:'Match existing colour, width and retroreflectivity.', studs:'Raised pavement markers to be replaced like-for-like.', note:'Markings not reinstated = works not complete. s.74 completion notice should not be accepted. Also s.59.' } }
+  },
+
+  rigid: {
+    levels: {
+      '0':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'10mm max', note:'3m straight edge. Tight tolerance on strategic network.' },
+      '1':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'10mm max', note:'3m straight edge.' },
+      '2':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'3m straight edge.' },
+      '3':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'3m straight edge.' },
+      '4':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+13mm', interim_depr:'13mm max', note:'3m straight edge.' },
+    },
+    layers: {
+      '0':{ surface:{depth:'200mm min slab', material:'C40 concrete, pavement quality'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'3 years', interim_max:'3 months', note:'Dowel bars required at joints. Must match existing slab thickness.' },
+      '1':{ surface:{depth:'180mm min slab', material:'C35 pavement quality concrete'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'3 years', interim_max:'3 months', note:'Match existing slab depth. Joint sealing required.' },
+      '2':{ surface:{depth:'150mm min slab', material:'C32 concrete'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'100mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Match existing.' },
+      '3':{ surface:{depth:'125mm min slab', material:'C28 concrete'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'100mm min', material:'Type 1 or granular'}, guarantee:'2 years', interim_max:'6 months', note:'' },
+      '4':{ surface:{depth:'100mm min slab', material:'C25 concrete'}, binder:{depth:'N/A', material:'N/A'}, base:{depth:'N/A', material:'N/A'}, subbase:{depth:'75mm min', material:'Granular'}, guarantee:'2 years', interim_max:'6 months', note:'' },
+    },
+    materials: {
+      '0':{ surface_mat:'Pavement quality concrete (PQC) C40 min. Exposed aggregate or brushed finish.', texture:'Brushed or exposed aggregate — match existing.', finish:'Flush ±6mm. Joints sealed.', note:'Joint pattern must match existing. Tie bars and dowels where required.' },
+      '1':{ surface_mat:'PQC C35. Match existing finish.', texture:'Match existing.', finish:'Flush ±6mm.', note:'' },
+      '2':{ surface_mat:'Concrete C32. Match existing where possible.', texture:'Standard brushed.', finish:'Flush ±6mm.', note:'' },
+      '3':{ surface_mat:'C28 concrete.', texture:'Standard.', finish:'Flush ±6mm.', note:'' },
+      '4':{ surface_mat:'C25 concrete.', texture:'Basic.', finish:'Flush ±10mm.', note:'' },
+    },
+    frames:   { all:{ level_perm:'±6mm carriageway', level_fw:'±3mm footway', settlement:'No rocking or settlement', surround:'Concrete haunching C20 min. Saw cut to clean edge first.', gully:'Flush ±6mm', kerbs:'Reset to original line and level', note:'Rigid roads — saw cut to clean edge before reinstatement of surround.' } },
+    markings: { all:{ requirement:'All markings to be reinstated on permanent surface.', timing:'14 days of permanent surface.', type:'Match existing.', colour:'Match existing.', studs:'Replace like-for-like.', note:'Same rules as flexible — s.74 + s.59 if not reinstated.' } }
+  },
+
+  modular: {
+    levels: {
+      'fw_b':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'1.8m straight edge. Lipping between units ≤3mm.' },
+      'fw_c':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'13mm max', note:'1.8m straight edge. Lipping ≤3mm.' },
+      'fw_d':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+13mm', interim_depr:'13mm max', note:'1.8m straight edge.' },
+      'carr':{ crown:'+6mm / -6mm', depression:'6mm max', interim_crown:'+10mm', interim_depr:'10mm max', note:'3m straight edge. Tighter than footway.' },
+    },
+    regularity: {
+      'fw_b':{ straightedge:'1.8m straight edge', max_gap:'7mm',  lipping:'3mm max between adjacent units', note:'Lipping is a trip hazard — 3mm is the absolute limit on busy footways.' },
+      'fw_c':{ straightedge:'1.8m straight edge', max_gap:'7mm',  lipping:'3mm max', note:'' },
+      'fw_d':{ straightedge:'1.8m straight edge', max_gap:'10mm', lipping:'5mm max', note:'Lightly used — slightly wider tolerance.' },
+      'carr':{ straightedge:'3m straight edge',   max_gap:'6mm',  lipping:'3mm max', note:'Carriageway block paving — tight tolerance.' },
+    },
+    layers: {
+      'fw_b':{ surface:{depth:'Match existing block depth (typically 60–80mm)', material:'Match existing block type, size, colour and pattern'}, binder:{depth:'25–40mm bedding sand', material:'Sharp sand — do not use building sand'}, base:{depth:'100mm min', material:'DBM or concrete'}, subbase:{depth:'100mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'Block depth must match existing. Bedding sand to BS 7533.' },
+      'fw_c':{ surface:{depth:'Match existing (typically 50–65mm)', material:'Match existing'}, binder:{depth:'25–40mm bedding sand', material:'Sharp sand'}, base:{depth:'75mm min', material:'DBM or concrete'}, subbase:{depth:'75mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'6 months', note:'' },
+      'fw_d':{ surface:{depth:'Match existing', material:'Match existing — compatible substitute acceptable'}, binder:{depth:'25mm bedding sand', material:'Sharp sand'}, base:{depth:'75mm min', material:'Granular or concrete'}, subbase:{depth:'75mm min', material:'Type 2 granular'}, guarantee:'2 years', interim_max:'6 months', note:'' },
+      'carr':{ surface:{depth:'80mm min block', material:'Match existing block type, size, colour, pattern'}, binder:{depth:'25–40mm bedding sand', material:'Sharp sand BS 7533'}, base:{depth:'150mm min', material:'DBM or concrete'}, subbase:{depth:'150mm min', material:'Type 1 granular'}, guarantee:'2 years', interim_max:'3 months', note:'Edge restraints must be reinstated. Pattern must match existing.' },
+    },
+    materials: {
+      'fw_b':{ surface_mat:'Match existing block exactly — type, size, colour, surface finish, pattern. Same manufacturer if possible.', texture:'Match existing surface texture.', finish:'Flush ±6mm. Joint spacing to match.', note:'Mismatched blocks in town centres/conservation areas will be rejected.' },
+      'fw_c':{ surface_mat:'Match existing block as closely as possible.', texture:'Match.', finish:'Flush ±6mm.', note:'' },
+      'fw_d':{ surface_mat:'Match existing or closely compatible substitute.', texture:'Match.', finish:'Flush ±10mm.', note:'' },
+      'carr':{ surface_mat:'Exact match required — block type, size, colour, bond pattern.', texture:'Match.', finish:'Flush ±6mm. Jointing sand compacted.', note:'Heritage/special surfaces — consult authority. Herringbone bond must be maintained.' },
+    },
+    frames:   { all:{ level_perm:'±3mm of surrounding surface', level_fw:'±3mm', settlement:'No rocking or settlement', surround:'Concrete haunching. Blocks cut to fit — no broken or snapped blocks.', gully:'Flush ±3mm. Blocks cut neatly.', kerbs:'Reset to original alignment. Haunching reinstated.', note:'Frames on modular surfaces must be ±3mm. Proud frame on block paved footway = trip hazard.' } },
+    markings: { all:{ requirement:'Thermoplastic markings to be reinstated on permanent surface where present.', timing:'14 days of permanent reinstatement.', type:'Match existing.', colour:'Match existing.', studs:'Replace like-for-like.', note:'Road markings on block paving are rare but must be reinstated where present.' } }
+  }
+};
+
+const SROH_FPN_REFS = {
+  levels:     [ { ref:'S.59', title:'Failure to reinstate', why:'Surface levels outside SROH tolerance = reinstatement not to specification', penalty:2500 }, { ref:'C18', title:'Materials / spec conditions', why:'Permanent reinstatement not meeting required SROH standard', penalty:500 } ],
+  regularity: [ { ref:'S.59', title:'Failure to reinstate', why:'Regularity outside tolerance = not reinstated to required standard', penalty:2500 }, { ref:'C18', title:'Materials / spec conditions', why:'Surface regularity breach is a specification failure', penalty:500 } ],
+  layers:     [ { ref:'S.59', title:'Failure to reinstate', why:'Insufficient layer depth = reinstatement not to SROH specification', penalty:2500 }, { ref:'C18', title:'Materials / spec conditions', why:'Wrong materials or depths = permit condition breach', penalty:500 }, { ref:'C10', title:'Permanent reinstatement overdue', why:'Interim still in place beyond permitted timescale', penalty:500 } ],
+  materials:  [ { ref:'S.59', title:'Failure to reinstate', why:'Wrong materials = reinstatement not to required standard', penalty:2500 }, { ref:'C18', title:'Materials / spec conditions', why:'Specification breach under permit conditions', penalty:500 } ],
+  frames:     [ { ref:'S.59', title:'Failure to reinstate', why:'Ironwork outside level tolerance or unstable = reinstatement not complete to standard', penalty:2500 }, { ref:'C6', title:'Surface in unsafe condition', why:'Proud or rocking cover presents hazard — mandatory FPN if dangerous', penalty:500 } ],
+  markings:   [ { ref:'S.74', title:'Completion notice — works not finished', why:'Road markings not reinstated = works cannot be considered complete', penalty:2500 }, { ref:'S.59', title:'Failure to reinstate', why:'Markings form part of the reinstatement obligation', penalty:2500 }, { ref:'C12', title:'Failure to notify completion of reinstatement', why:'Reinstatement incomplete if markings absent', penalty:500 } ],
+};
+
+const srohState = { surface:null, category:null, inspection:null };
+
+function srohSelect(type, value) {
+  srohState[type] = value;
+
+  if (type === 'surface') {
+    document.querySelectorAll('#sroh-step1 .sroh-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    const cats = SROH_CATEGORIES[value];
+    const grid = document.getElementById('sroh-cat-grid');
+    grid.innerHTML = cats.map(c => `<button class="sroh-btn" onclick="srohSelect('category','${c.id}')">${c.label}<span>${c.desc}</span></button>`).join('');
+    const hints = { flexible:'Flexible = asphalt/bituminous roads and footways', rigid:'Rigid = concrete slab roads', modular:'Modular = block paving, setts, natural stone flags' };
+    document.getElementById('sroh-cat-hint').textContent = hints[value];
+    document.getElementById('sroh-step2').classList.remove('sroh-hidden');
+    document.getElementById('sroh-step3').classList.add('sroh-hidden');
+    document.getElementById('sroh-result').classList.add('sroh-hidden');
+    document.getElementById('sroh-reset-btn').classList.remove('sroh-hidden');
+    srohState.category = null; srohState.inspection = null;
+  }
+
+  if (type === 'category') {
+    srohState.category = value;
+    document.querySelectorAll('#sroh-cat-grid .sroh-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    const insps = SROH_INSPECTIONS[srohState.surface];
+    const grid = document.getElementById('sroh-insp-grid');
+    grid.innerHTML = insps.map(i => `<button class="sroh-btn" onclick="srohSelect('inspection','${i.id}')">${i.icon} ${i.label}<span>${i.desc}</span></button>`).join('');
+    document.getElementById('sroh-step3').classList.remove('sroh-hidden');
+    document.getElementById('sroh-result').classList.add('sroh-hidden');
+    srohState.inspection = null;
+    setTimeout(() => document.getElementById('sroh-step3').scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  }
+
+  if (type === 'inspection') {
+    srohState.inspection = value;
+    document.querySelectorAll('#sroh-insp-grid .sroh-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    srohRenderResult();
+    setTimeout(() => document.getElementById('sroh-result').scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  }
+}
+
+function srohRenderResult() {
+  const { surface, category, inspection } = srohState;
+  const surfaceData = SROH_SPECS[surface];
+  if (!surfaceData) return;
+  const inspData = surfaceData[inspection];
+  if (!inspData) return;
+  const catKey = (inspection === 'frames' || inspection === 'markings') ? 'all' : category;
+  const data = inspData[catKey] || inspData['all'];
+  if (!data) return;
+  const catDef = SROH_CATEGORIES[surface].find(c => c.id === category);
+  const inspDef = SROH_INSPECTIONS[surface].find(i => i.id === inspection);
+  const fpns = SROH_FPN_REFS[inspection] || [];
+
+  let specHTML = '';
+
+  if (inspection === 'levels') {
+    const sm = ['0','1','2','3','4'].includes(category) ? '3m straight edge' : '1.8m straight edge';
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Permanent crowning (proud)</strong>Max allowable above surrounding surface</div><div class="sroh-spec-val teal">${data.crown}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Permanent depression (sunken)</strong>Max allowable below surrounding surface</div><div class="sroh-spec-val teal">${data.depression}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Interim crowning</strong>Allowed during interim period</div><div class="sroh-spec-val amber">${data.interim_crown}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Interim depression</strong>Allowed during interim period</div><div class="sroh-spec-val amber">${data.interim_depr}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Measurement tool</strong></div><div class="sroh-spec-val">${sm}</div></div>`;
+  } else if (inspection === 'regularity') {
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Straight edge</strong></div><div class="sroh-spec-val">${data.straightedge}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Max gap under straight edge</strong></div><div class="sroh-spec-val teal">${data.max_gap}</div></div>
+      ${data.lipping ? `<div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Lipping between units</strong>Max step between adjacent blocks/flags</div><div class="sroh-spec-val teal">${data.lipping}</div></div>` : ''}`;
+  } else if (inspection === 'layers') {
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Surface course</strong>${data.surface.material}</div><div class="sroh-spec-val teal">${data.surface.depth}</div></div>
+      ${data.binder.depth !== 'N/A' ? `<div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Binder course</strong>${data.binder.material}</div><div class="sroh-spec-val teal">${data.binder.depth}</div></div>` : ''}
+      ${data.base.depth !== 'N/A' ? `<div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Road base</strong>${data.base.material}</div><div class="sroh-spec-val teal">${data.base.depth}</div></div>` : ''}
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Sub-base</strong>${data.subbase.material}</div><div class="sroh-spec-val teal">${data.subbase.depth}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Guarantee period</strong></div><div class="sroh-spec-val amber">${data.guarantee}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Max interim period</strong>Permanent reinstatement must be laid by</div><div class="sroh-spec-val amber">${data.interim_max} from completion</div></div>`;
+  } else if (inspection === 'materials') {
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Surface material</strong></div><div class="sroh-spec-val teal" style="font-size:11px;font-family:var(--sans);text-align:right">${data.surface_mat}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Texture / skid resistance</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.texture}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Level / finish</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.finish}</div></div>`;
+  } else if (inspection === 'frames') {
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Frame / cover level — carriageway</strong></div><div class="sroh-spec-val teal">${data.level_perm}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Frame / cover level — footway</strong></div><div class="sroh-spec-val teal">${data.level_fw || '±3mm'}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Stability</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.settlement}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Surround / haunching</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.surround}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Gully tops</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.gully}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Kerbs</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.kerbs}</div></div>`;
+  } else if (inspection === 'markings') {
+    specHTML = `
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Requirement</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.requirement}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Timing</strong></div><div class="sroh-spec-val amber">${data.timing}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Type / material</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.type}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Colour / retro-reflectivity</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.colour}</div></div>
+      <div class="sroh-spec-row"><div class="sroh-spec-label"><strong>Raised markers / studs</strong></div><div class="sroh-spec-val" style="font-size:11px;font-family:var(--sans);text-align:right">${data.studs}</div></div>`;
+  }
+
+  const noteHTML = data.note ? `<div class="sroh-note">📌 ${data.note}</div>` : '';
+  const fpnHTML = fpns.length ? `<div class="sroh-fpn-section"><div class="sroh-fpn-label">Applicable FPN sections</div>${fpns.map(f=>`<div class="sroh-fpn-item"><span class="sroh-fpn-ref">${f.ref}</span><div class="sroh-fpn-info"><div class="sroh-fpn-title">${f.title}</div><div class="sroh-fpn-why">${f.why}</div></div><span class="sroh-fpn-penalty">£${f.penalty.toLocaleString()}</span></div>`).join('')}</div>` : '';
+  const surfLabels = { flexible:'Flexible (asphalt)', rigid:'Rigid (concrete)', modular:'Modular (block/setts)' };
+
+  document.getElementById('sroh-result').innerHTML = `
+    <div class="sroh-result-card">
+      <div class="sroh-result-header">
+        <h3>${inspDef.icon} ${inspDef.label}</h3>
+        <p>${surfLabels[surface]} · ${catDef.label} — ${catDef.desc}</p>
+      </div>
+      <div class="sroh-spec-grid">${specHTML}</div>
+      ${noteHTML}
+      ${fpnHTML}
+    </div>`;
+  document.getElementById('sroh-result').classList.remove('sroh-hidden');
+}
+
+function srohReset() {
+  srohState.surface = null; srohState.category = null; srohState.inspection = null;
+  document.querySelectorAll('.sroh-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('sroh-step2').classList.add('sroh-hidden');
+  document.getElementById('sroh-step3').classList.add('sroh-hidden');
+  document.getElementById('sroh-result').classList.add('sroh-hidden');
+  document.getElementById('sroh-reset-btn').classList.add('sroh-hidden');
+  window.scrollTo(0, 0);
 }
 
 // PWA SERVICE WORKER
